@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.R.A.S</title>
+    <link rel="stylesheet" href="desing.css">
+    
+</head>
+<body>
+    <header class="super">
+        <div class="contenedor-central">
+          <img src="fotos/nota.png" alt="Nota" class="nota" />
+      
+          <img src="fotos/Logo.jpg" alt="Logo" class="logo" />
+      
+          <div class="login-box">
+            <h2>Iniciar Sesión</h2>
+            <form id="login_sesion">
+              <label for="login_usuario">Ingrese su Usuario*</label>
+              <input type="text" placeholder="Tu Usuario" required />
+      
+              <label for="login_contraseña">Ingresar Contraseña*</label>
+              <input type="password" placeholder="**********" required />
+      
+              <button type="submit">Ingresar</button>
+      
+              <p class="terminos">Términos y Condiciones</p>
+            </form>
+          </div>
+        </div>
+      </header>
+      
+      <main>
+        <!-- Navbar superior -->
+        <nav class="navbar_carrusel">
+          <h1>CONOCE MÁS SOBRE NOSOTROS!</h1>
+        </nav>
+      
+        <!-- Carrusel de videos -->
+        <div class="video-carousel-container">
+          <button class="carousel-btn prev">&#10094;</button>
+          <div class="video-carousel">
+            <div class="carousel-track">
+              <div class="carousel-item">
+                <video src="videos/Prueba del robot.mp4" controls></video>
+              </div>
+              <div class="carousel-item">
+                <video src="videos/Prueba.mp4" controls></video>
+              </div>
+              <div class="carousel-item">
+                <video src="videos/jajaja los.mp4" controls></video>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-btn next">&#10095;</button>
+        </div>
+      
+        <!-- Footer -->
+        <footer class="navbar_carrusel_2">
+          <div class="contenedor-central">
+            <div class="Direction">
+              <img src="fotos/Logo.jpg" width="50" height="50" alt="Logo">
+              <p>Dirección: Jr. Luna 320</p>
+            </div>
+            <div class="numero">
+              <img src="fotos/Logo.jpg" width="50" height="50" alt="Logo">
+              <p>Contactos: 948770253</p>
+            </div>
+          </div>
+        </footer>
+      </main>
+      
+      <script src="funcionalidad.js"></script>    
+</body>
+</html>

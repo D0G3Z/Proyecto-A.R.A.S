@@ -1,0 +1,186 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header.super {
+    background-image: url('fotos/plantel.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.contenedor-central {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.nota {
+    width: 250px;
+    height: auto;
+}
+
+.logo {
+    width: 300px;
+    height: auto;
+}
+
+.login-box {
+    background-color: rgba(230, 230, 230, 0.95);
+    padding: 30px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.login-box h2 {
+    color: #e50914;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-box label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #444;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+}
+
+.login-box button {
+    width: 100%;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-box .terminos {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+main {
+    padding: 0px;
+}
+
+/* Título superior */
+.navbar_carrusel {
+    background-color: #e50914;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.navbar_carrusel h1 {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Carrusel de videos */
+.video-carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-carousel {
+    overflow: hidden;
+    width: calc(100% - 80px); /* Ajusta este valor según sea necesario */
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: content-box;
+    padding: 10px;
+    align-items: center;
+}
+
+.carousel-item video {
+    width: 100%;
+    max-width: 400px; /* Ajusta el tamaño máximo del video */
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Botones de navegación del carrusel */
+.carousel-btn {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Pie de página (footer rojo) */
+.navbar_carrusel_2 {
+    background-color: #e50914;
+    color: white;
+    padding: 20px 0;
+}
+
+.contenedor-central {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.Direction, .numero {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Direction p, .numero p {
+    margin: 0;
+    font-size: 18px;
+}
