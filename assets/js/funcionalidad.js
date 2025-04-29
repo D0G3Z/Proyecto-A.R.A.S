@@ -96,8 +96,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data.success) {
                     // Guardar en localStorage el nombre_usuario
                     localStorage.setItem('nombre_usuario', document.getElementById("login_usuario").value);
+                    localStorage.setItem('rol', data.usuario.rol);
                 
-                    window.location.href = "../pages/home.html"; // Redirigir al home
+                    switch (data.usuario.rol) {
+                        case "DIRECTOR":
+                            window.location.href = "../pages/home_director.html";
+                            break;
+                        case "DOCENTE":
+                            window.location.href = "../pages/home_docente.html";
+                            break;
+                        case "APODERADO":
+                            window.location.href = "../pages/home_apoderado.html";
+                            break;
+                        default:
+                            alert("Rol no reconocido");
+                            break;
+                    }
                 } else {
                     alert(data.message || 'Usuario o contraseña incorrectos');
                 }
