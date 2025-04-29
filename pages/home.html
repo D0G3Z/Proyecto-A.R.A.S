@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A.R.A.S</title>
-    <link rel="stylesheet" href="desing.css">
+    <link rel="stylesheet" href="../assets/css/desing.css">
 </head>
 <body>
     <header class="home">
         <nav class="navbar_home">
+            
             <div class="navbar_left">
-                <img src="fotos/Logo1.png" alt="logo_home" width="60">
+                <img src="../assets/img/Logo1.png" alt="logo_home" width="60">
             </div>
             <div class="navbar_center">
                 <h1>ALBERTO RUBENS ALTUNA SOLORSANO</h1>
             </div>
             <div class="navbar_right">
-                <img src="fotos/campanita.PNG" alt="logo_campanita" width="40">
-                <img src="fotos/perfil.png" alt="logo_perfil" width="40">
-            
+                <img src="../assets/img/campanita.PNG" alt="logo_campanita" width="40">
+                <div class="perfil-container">
+                    <img src="../assets/img/perfil.png" alt="logo_perfil" id="perfil-icon" width="40">
+                    <div class="menu-perfil" id="menu-perfil">
+                        <a href="#">Ver perfil</a>
+                        <a href="login.html">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
         </nav>
     </header>
     
@@ -37,30 +44,30 @@
     
         <!-- Contenido principal: Tabla -->
         <section class="tabla-horario">
-            <h1>Mis Cursos</h1>
+            <h1>Horario</h1>
             <table>
                 <thead>
                     <tr>
-                        <th>Cursos</th>
-                        <th>Nota</th>
-                        <th>Inasistencia</th>
+                        <th>Curso</th>
+                        <th>Hora de Inicio</th>
+                        <th>Hora Terminada</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Matemática</td>
-                        <td>20</td>
-                        <td>18</td>
+                        <td>08:00 AM</td>
+                        <td>09:00 AM</td>
                     </tr>
                     <tr>
                         <td>Comunicación</td>
-                        <td>19</td>
-                        <td>20</td>
+                        <td>09:15 AM</td>
+                        <td>10:15 AM</td>
                     </tr>
                     <tr>
                         <td>Historia</td>
-                        <td>50</td>
-                        <td>20</td>
+                        <td>10:30 AM</td>
+                        <td>11:30 AM</td>
                     </tr>
                 </tbody>
             </table>
@@ -69,6 +76,6 @@
     
     
     
-    <script src="funcionalidad.js"></script>
+    <script src="../assets/js/funcionalidad.js"></script>
 </body>
 </html>

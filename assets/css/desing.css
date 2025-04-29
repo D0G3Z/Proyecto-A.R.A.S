@@ -5,7 +5,7 @@ body {
 }
 
 header.super {
-    background-image: url('fotos/plantel.jpg');
+    background-image: url('../img/plantel.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh;
