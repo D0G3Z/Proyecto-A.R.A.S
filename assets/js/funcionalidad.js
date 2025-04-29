@@ -70,4 +70,42 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
+    // ========================
+    // Fetch de login
+    // ========================
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById("login_sesion");
+    
+        if (loginForm) {
+            loginForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+    
+                const usuario = document.getElementById("login_usuario").value;
+                const contrasena = document.getElementById("login_contraseña").value;
+    
+                fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ usuario, contrasena })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "../pages/home.html"; // Redirigir al home
+                    } else {
+                        alert(data.message || 'Usuario o contraseña incorrectos');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                });
+            });
+        }
+    });
+    
+
 });
