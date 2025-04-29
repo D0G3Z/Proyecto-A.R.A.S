@@ -75,35 +75,50 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch de login
     // ========================
 
-        const loginForm = document.getElementById("login_sesion");
+    const loginForm = document.getElementById("login_sesion");
     
-        if (loginForm) {
-            loginForm.addEventListener("submit", function (e) {
-                e.preventDefault();
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (e) {
+            e.preventDefault();
     
-                const usuario = document.getElementById("login_usuario").value;
-                const contrasena = document.getElementById("login_contraseña").value;
+            const usuario = document.getElementById("login_usuario").value;
+            const contrasena = document.getElementById("login_contraseña").value;
     
-                fetch('http://localhost:3000/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ usuario, contrasena })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        window.location.href = "../pages/home.html"; // Redirigir al home
-                    } else {
-                        alert(data.message || 'Usuario o contraseña incorrectos');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error en la solicitud:', error);
-                });
+            fetch('http://localhost:3000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ usuario, contrasena })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Guardar en localStorage el nombre_usuario
+                    localStorage.setItem('nombre_usuario', document.getElementById("login_usuario").value);
+                
+                    window.location.href = "../pages/home.html"; // Redirigir al home
+                } else {
+                    alert(data.message || 'Usuario o contraseña incorrectos');
+                }
+            })
+                
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
             });
-        }
+        });
+    }
+    
+    const btnCerrarSesion = document.getElementById('cerrar-sesion');
+
+    if (btnCerrarSesion) {
+        btnCerrarSesion.addEventListener('click', function (e) {
+            e.preventDefault(); // Para que no recargue
+            localStorage.clear(); // Borra la sesión
+            window.location.href = "login.html"; // Redirige al login
+        });
+    }
+
     
 
 });
