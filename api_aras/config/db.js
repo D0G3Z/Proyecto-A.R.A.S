@@ -1,12 +1,15 @@
-const sql = require('mssql/msnodesqlv8');
+const sql = require('mssql');
 
 const config = {
+    user: 'aras_admin',
+    password: 'aras1234',
     server: 'DESKTOP-PN15LOT',
     database: 'db_ARAS',
-    driver: 'msnodesqlv8',
     options: {
-        trustedConnection: true
+        encrypt: false,
+        trustServerCertificate: true
     }
 };
 
 module.exports = config;
+

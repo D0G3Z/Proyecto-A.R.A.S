@@ -38,14 +38,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // ========================
     // Formulario de Login
     // ========================
-    const loginForm = document.getElementById("login_sesion");
+    /*const loginForm = document.getElementById("login_sesion");
 
     if (loginForm) {
         loginForm.addEventListener("submit", function (e) {
             e.preventDefault();
             window.location.href = "home.html";
         });
-    }
+    }*/
 
     // ========================
     // Menú desplegable del perfil
@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch de login
     // ========================
 
-    document.addEventListener('DOMContentLoaded', function () {
         const loginForm = document.getElementById("login_sesion");
     
         if (loginForm) {
@@ -105,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
         }
-    });
     
 
 });
