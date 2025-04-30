@@ -5,6 +5,7 @@ const loginRoutes = require('./routes/loginRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
 const directorRoutes = require('./routes/directorRoutes');
 const horarioRoutes = require('./routes/horarioRoutes');
+const materiaRoutes = require('./routes/materiaRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -18,6 +19,7 @@ app.use('/api', loginRoutes);
 app.use('/api', perfilRoutes);
 app.use('/api', directorRoutes);
 app.use('/api', horarioRoutes);
+app.use('/api', materiaRoutes);
 
 // Servidor escuchando
 app.listen(PORT, () => {

@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', async function () {
         const res = await fetch(`${API_URL}/materias/docente/${idDocente}`);
         const data = await res.json();
 
+        console.log('Respuesta de la API:', data);  // Agrega esto para ver la respuesta completa del backend
+
         if (data.success) {
             tablaMaterias.innerHTML = "";
             // Cargar las materias en la tabla
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 const fila = `
                     <tr>
                         <td>${materia.materia}</td>
-                        <td>${materia.grado}</td>
+                        <td>${materia.grado_y_nivel}</td>  
                     </tr>
                 `;
                 tablaMaterias.innerHTML += fila;
