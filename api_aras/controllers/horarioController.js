@@ -13,8 +13,8 @@ async function getHorarios(req, res) {
                 g.nombre AS nombre_grado,                                 
                 s.letra AS nombre_seccion,                                
                 h.dia_semana,
-                FORMAT(h.hora_inicio, 'HH\\:mm') AS hora_inicio,
-                FORMAT(h.hora_fin, 'HH\\:mm') AS hora_fin
+                FORMAT(h.hora_inicio, 'hh\\:mm') AS hora_inicio,
+                FORMAT(h.hora_fin, 'hh\\:mm') AS hora_fin
             FROM horario_clase h
             JOIN docente d ON h.id_docente = d.id_docente
             JOIN materia m ON h.id_materia = m.id_materia
@@ -172,7 +172,7 @@ async function getGradosPorNivel(req, res) {
     try {
         await sql.connect(config);
         const result = await sql.query`
-            SELECT id_grado, nombre
+            SELECT id_grado, nombre, id_nivel
             FROM grado
             WHERE id_nivel = ${id_nivel}
         `;

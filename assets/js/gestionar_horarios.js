@@ -33,9 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // === Al cambiar nivel, cargar docentes filtrados ===
     nivelSelect.addEventListener('change', async function () {
         const idNivel = this.value;
-    
         if (!idNivel) return;
-    
+
         // === DOCENTES POR NIVEL ===
         const docentesRes = await fetch(`${API_URL}/docentes/nivel/${idNivel}`);
         const docentesData = await docentesRes.json();
@@ -49,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 docenteSelect.appendChild(option);
             });
         }
-    
+
         // === GRADOS POR NIVEL ===
         const gradosRes = await fetch(`${API_URL}/grados/nivel/${idNivel}`);
         const gradosData = await gradosRes.json();
@@ -133,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
             id_docente: docenteSelect.value,
             id_materia: materiaSelect.value,
             id_grado: gradoSelect.value,
-            id_seccion: SECCION_FIJA_ID,
+            id_seccion: SECCION_FIJA_ID,  // Sección siempre fija
             dia_semana: document.getElementById('dia').value,
             hora_inicio: horaInicio,
             hora_fin: horaFin
