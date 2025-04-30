@@ -125,7 +125,9 @@ module.exports = {
     getSecciones,
     getDocentesPorNivel,       // ✅ este debe estar exportado
     getMateriasPorDocente,
-    getGradosPorNivel
+    getGradosPorNivel,
+    getListAlumnos,
+    getListDocentes
 };
 
 // Obtener docentes por nivel
@@ -182,4 +184,42 @@ async function getGradosPorNivel(req, res) {
         res.status(500).json({ success: false });
     }
 }
+
+// Obtener todos los docentes
+async function getListDocentes(req, res) {
+    try {
+        await sql.connect(config);
+        const result = await sql.query`
+            SELECT id_docente, nombres, apellido_paterno, dni, estado
+            FROM docente
+            WHERE estado = 'Activo'
+        `;
+        res.json({ success: true, result: result.recordset });
+    } catch (error) {
+        console.error('Error al obtener docentes:', error);
+        res.status(500).json({ success: false, message: 'Error al obtener docentes' });
+    }
+}
+
+// Obtener todos los alumnos con su grado
+async function getListAlumnos(req, res) {
+    try {
+        await sql.connect(config);
+        const result = await sql.query`
+            SELECT 
+                a.id_alumno, 
+                a.nombres, 
+                a.apellido_paterno, 
+                a.estado
+            FROM alumno a
+            WHERE a.estado = 'Activo'
+        `;
+        res.json({ success: true, result: result.recordset });
+    } catch (error) {
+        console.error('Error al obtener alumnos:', error);
+        res.status(500).json({ success: false, message: 'Error al obtener alumnos' });
+    }
+}
+
+
 

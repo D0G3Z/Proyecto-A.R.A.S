@@ -10,7 +10,9 @@ const {
     getSecciones,
     getDocentesPorNivel,
     getMateriasPorDocente,
-    getGradosPorNivel
+    getGradosPorNivel,
+    getListDocentes,
+    getListAlumnos
 } = require('../controllers/horarioController');
 
 
@@ -26,5 +28,7 @@ router.get('/grados/nivel/:id_nivel', getGradosPorNivel);
 router.get('/docentes/nivel/:id_nivel', getDocentesPorNivel);
 router.get('/docente/:id/materias', getMateriasPorDocente);
 
+router.get('/docentes/lista', getListDocentes)
+router.get('/alumnos/lista', getListAlumnos)
 
 module.exports = router;
