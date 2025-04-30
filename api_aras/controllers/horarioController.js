@@ -127,7 +127,8 @@ module.exports = {
     getMateriasPorDocente,
     getGradosPorNivel,
     getListAlumnos,
-    getListDocentes
+    getListDocentes,
+    getHorariosDocente
 };
 
 // Obtener docentes por nivel
@@ -220,6 +221,42 @@ async function getListAlumnos(req, res) {
         res.status(500).json({ success: false, message: 'Error al obtener alumnos' });
     }
 }
+
+// Obtener los horarios de un docente específico
+async function getHorariosDocente(req, res) {
+    const { id_docente } = req.params;  // Obtiene el id del docente desde los parámetros de la URL
+
+    console.log('id_docente:', id_docente);  // Imprime el id del docente para asegurarse de que es correcto
+
+    try {
+        await sql.connect(config);
+        const result = await sql.query`
+            SELECT 
+                h.id_horario,
+                m.nombre AS materia,
+                g.nombre AS grado,
+                h.dia_semana,
+                FORMAT(h.hora_inicio, 'hh\\:mm') AS hora_inicio,
+                FORMAT(h.hora_fin, 'hh\\:mm') AS hora_fin
+            FROM horario_clase h
+            JOIN materia m ON h.id_materia = m.id_materia
+            JOIN grado g ON h.id_grado = g.id_grado
+            WHERE h.id_docente = ${id_docente}  
+            ORDER BY h.hora_inicio;  
+        `;
+
+        res.json({ success: true, horarios: result.recordset });
+    } catch (error) {
+        console.error('Error al obtener horarios del docente:', error);
+        res.status(500).json({ success: false, message: 'Error al obtener horarios del docente' });
+    }
+}
+
+
+
+
+
+
 
 
 

@@ -12,7 +12,8 @@ const {
     getMateriasPorDocente,
     getGradosPorNivel,
     getListDocentes,
-    getListAlumnos
+    getListAlumnos,
+    getHorariosDocente
 } = require('../controllers/horarioController');
 
 
@@ -30,5 +31,9 @@ router.get('/docente/:id/materias', getMateriasPorDocente);
 
 router.get('/docentes/lista', getListDocentes)
 router.get('/alumnos/lista', getListAlumnos)
+
+// Obtener horarios de un docente específico
+router.get('/horarios/docente/:id_docente', getHorariosDocente);
+
 
 module.exports = router;
