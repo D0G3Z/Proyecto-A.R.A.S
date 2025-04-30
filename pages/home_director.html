@@ -76,16 +76,9 @@
 
 <script src="../assets/js/funcionalidad.js"></script>
 <script src="../assets/js/home_director.js"></script>
-
-<!-- Validación de rol -->
+<script src="../assets/js/auth.js"></script> 
 <script>
-    const rol = localStorage.getItem('rol');
-    const usuario = localStorage.getItem('nombre_usuario');
-
-    // Verificamos que exista sesión y sea DIRECTOR
-    if (!usuario || rol !== "DIRECTOR") {
-        window.location.href = "login.html";
-    }
+    verificarRol("DIRECTOR");
 </script>
 
 

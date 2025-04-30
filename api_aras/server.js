@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const loginRoutes = require('./routes/loginRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
 const directorRoutes = require('./routes/directorRoutes');
+const horarioRoutes = require('./routes/horarioRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use('/api', loginRoutes);
 app.use('/api', perfilRoutes);
 app.use('/api', directorRoutes);
+app.use('/api', horarioRoutes);
 
 // Servidor escuchando
 app.listen(PORT, () => {
