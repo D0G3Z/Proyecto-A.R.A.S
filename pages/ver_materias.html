@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Materias - Docente</title>
+    <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body>
+
+<header class="home">
+    <nav class="navbar_home">
+        <div class="navbar_left">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+        </div>
+        <div class="navbar_center">
+            <h1>Mis Materias</h1>
+        </div>
+        <div class="navbar_right">
+            <a href="home_docente.html" style="color:white; text-decoration:none;">Volver</a>
+        </div>
+    </nav>
+</header>
+
+<main class="contenedor-principal">
+    <!-- Barra lateral con las opciones del docente -->
+    <nav class="navbar_home_infe">
+        <ul class="nav-links_home">
+            <li><a href="ver_horarios.html">Ver Horarios</a></li>
+            <li><a href="ver_materias.html">Ver Materias</a></li>
+            <li><a href="ver_perfil.html">Ver Perfil</a></li>
+        </ul>
+    </nav>
+
+    <!-- Tabla de materias -->
+    <section class="tabla-horario">
+        <h2>Mis Materias</h2>
+        <table style="width:100%; background:white; border-collapse: collapse;">
+            <thead>
+                <tr style="background:#2c3e50; color:white;">
+                    <th>Materia</th>
+                    <th>Grado</th>
+                    <th>Sección</th>
+                </tr>
+            </thead>
+            <tbody id="tablaMaterias">
+                <!-- Aquí se cargarán las materias desde JS -->
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<script src="../assets/js/funcionalidad.js"></script>
+<script src="../assets/js/ver_materias.js"></script>
+
+</body>
+</html>

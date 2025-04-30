@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar y Ver Tareas - Docente</title>
+    <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body>
+
+<header class="home">
+    <nav class="navbar_home">
+        <div class="navbar_left">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+        </div>
+        <div class="navbar_center">
+            <h1>Asignar y Ver Tareas</h1>
+        </div>
+        <div class="navbar_right">
+            <a href="home_docente.html" style="color:white; text-decoration:none;">Volver</a>
+        </div>
+    </nav>
+</header>
+
+<main class="contenedor-principal">
+    <nav class="navbar_home_infe">
+        <ul class="nav-links_home">
+            <li><a href="ver_horarios.html">Ver Horarios</a></li>
+            <li><a href="ver_materias.html">Ver Materias</a></li>
+            <li><a href="ver_perfil.html">Ver Perfil</a></li>
+        </ul>
+    </nav>
+
+    <!-- Tabla de tareas -->
+    <section class="tabla-horario">
+        <h2>Asignar Tareas</h2>
+        <form id="formTarea">
+            <label for="materia">Materia:</label>
+            <input type="text" id="materia" required />
+
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" required></textarea>
+
+            <label for="fecha_entrega">Fecha de Entrega:</label>
+            <input type="date" id="fecha_entrega" required />
+
+            <button type="submit">Asignar Tarea</button>
+        </form>
+
+        <h3>Mis Tareas Asignadas</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Materia</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Entrega</th>
+                </tr>
+            </thead>
+            <tbody id="tablaTareas">
+                <!-- Aquí se cargarán las tareas -->
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script src="../assets/js/funcionalidad.js"></script>
+<script src="../assets/js/ver_tareas.js"></script>
+
+</body>
+</html>

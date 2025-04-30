@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Docente A.R.A.S</title>
+    <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body>
+
+<header class="home">
+    <nav class="navbar_home">
+        <div class="navbar_left">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+        </div>
+        <div class="navbar_center">
+            <h1>Bienvenido Docente</h1>
+        </div>
+        <div class="navbar_right">
+            <a href="login.html" style="color:white; text-decoration:none;">Cerrar sesión</a>
+        </div>
+    </nav>
+</header>
+
+<main class="contenedor-principal">
+    <!-- Barra lateral izquierda con las opciones del docente -->
+    <nav class="navbar_home_infe">
+        <ul class="nav-links_home">
+            <li><a href="ver_horarios.html">Ver Horarios</a></li>
+            <li><a href="ver_materias.html">Ver Materias</a></li>
+            <li><a href="ver_perfil.html">Ver Perfil</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido principal con un pequeño mensaje de bienvenida -->
+    <section class="tabla-horario">
+        <h1>¡Bienvenido al Panel del Docente!</h1>
+        <p>Aquí puedes gestionar tu perfil, horarios, materias, y más.</p>
+    </section>
+</main>
+
+<script src="../assets/js/funcionalidad.js"></script>
+<script src="../assets/js/auth.js"></script> 
+<script>
+    verificarRol("DOCENTE");
+</script>
+
+</body>
+</html>

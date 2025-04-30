@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Perfil - Docente</title>
+    <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body>
+
+<header class="home">
+    <nav class="navbar_home">
+        <div class="navbar_left">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+        </div>
+        <div class="navbar_center">
+            <h1>Mi Perfil</h1>
+        </div>
+        <div class="navbar_right">
+            <a href="home_docente.html" style="color:white; text-decoration:none;">Volver</a>
+        </div>
+    </nav>
+</header>
+
+<main class="contenedor-principal">
+    <!-- Barra lateral con las opciones del docente -->
+    <nav class="navbar_home_infe">
+        <ul class="nav-links_home">
+            <li><a href="ver_horarios.html">Ver Horarios</a></li>
+            <li><a href="ver_materias.html">Ver Materias</a></li>
+            <li><a href="ver_perfil.html">Ver Perfil</a></li>
+        </ul>
+    </nav>
+
+    <!-- Mostrar perfil del docente -->
+    <section style="width: 90%; max-width: 1000px; background-color: #fff; padding: 20px; border-radius: 8px;">
+        <h2>Mi Perfil</h2>
+        <div id="perfilDocente">
+            <p><strong>Nombre:</strong> <span id="nombreDocente">John Doe</span></p>
+            <p><strong>Correo:</strong> <span id="correoDocente">johndoe@example.com</span></p>
+            <p><strong>Estado:</strong> <span id="estadoDocente">Activo</span></p>
+            <p><strong>Foto:</strong> <img id="fotoDocente" src="../assets/img/default_profile.png" alt="Foto del Docente" width="100"></p>
+        </div>
+
+        <!-- Enlace para cambiar la contraseña -->
+        <a href="editar_contraseña.html" style="color: #e50914; text-decoration: none;">Cambiar Contraseña</a>
+    </section>
+
+</main>
+
+<script src="../assets/js/funcionalidad.js"></script>
+<script src="../assets/js/ver_perfil.js"></script>
+
+</body>
+</html>
