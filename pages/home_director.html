@@ -52,25 +52,48 @@
         </div>
     </section>
 
-    <!-- Horarios resumen -->
     <section style="width: 90%; max-width: 1000px;">
         <h2 style="text-align:center; margin-bottom:20px;">Horarios de Clases</h2>
+        <!-- Filtros por nivel (Primaria, Secundaria) -->
+        <div style="margin-bottom: 20px;">
+            <label for="nivelSelect">Seleccionar Nivel:</label>
+            <select id="nivelSelect">
+                <option value="">Seleccionar Nivel</option>
+                <option value="1">Primaria</option>
+                <option value="2">Secundaria</option>
+            </select>
+            
+            <label for="gradoSelect">Seleccionar Grado:</label>
+            <select id="gradoSelect">
+                <option value="">Seleccionar Grado</option>
+                <!-- Opciones de grados se llenarán con JS -->
+            </select>
+            
+            <label for="seccionSelect">Seleccionar Sección:</label>
+            <select id="seccionSelect">
+                <option value="">Seleccionar Sección</option>
+                <!-- Opciones de secciones se llenarán con JS -->
+            </select>
+        </div>
+    
+        <!-- Tabla de horarios -->
         <table style="width:100%; background:white; border-collapse: collapse; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
             <thead>
                 <tr style="background:#35475b; color:white;">
-                    <th>Curso</th>
-                    <th>Docente</th>
-                    <th>Grado</th>
-                    <th>Día</th>
-                    <th>Hora Inicio</th>
-                    <th>Hora Fin</th>
+                    <th>Hora</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
                 </tr>
             </thead>
             <tbody id="tablaHorarios" style="text-align:center;">
-                <!-- JS llenará aquí -->
+                <!-- Aquí se llenarán los horarios con JS -->
             </tbody>
         </table>
     </section>
+    
 
 </main>
 

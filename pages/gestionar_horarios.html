@@ -23,11 +23,11 @@
 </header>
 
 <main class="contenedor-principal" style="flex-direction: column; align-items: center; padding: 30px;">
-
   <!-- Formulario para agregar horario -->
   <section style="background:white; padding:20px; border-radius:10px; width:90%; max-width:800px; margin-bottom: 40px;">
     <h2>Nuevo Horario</h2>
     <form id="formHorario" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+        <!-- Filtros -->
         <select id="nivel" required>
           <option value="">Seleccionar Nivel</option>
           <option value="1">Primaria</option>
@@ -40,6 +40,10 @@
       
         <select id="grado" required>
           <option value="">Seleccionar Grado</option>
+        </select>
+        
+        <select id="seccion" required>
+          <option value="">Seleccionar Sección</option>
         </select>
       
         <select id="materia" required>
@@ -66,14 +70,24 @@
       
         <button type="submit" style="grid-column: span 2;">Guardar Horario</button>
       </form>
-      
   </section>
 
-  
   <!-- Tabla de horarios -->
   <section style="width: 90%; max-width: 1000px;">
     <h2>Horarios Registrados</h2>
+    <div>
+      <label for="gradoSelect">Seleccionar Grado:</label>
+      <select id="gradoSelect">
+        <option value="">Seleccionar Grado</option>
+        <!-- Los grados se llenarán aquí mediante JS -->
+      </select>
 
+      <label for="seccionSelect">Seleccionar Sección:</label>
+      <select id="seccionSelect">
+        <option value="">Seleccionar Sección</option>
+        <!-- Las secciones se llenarán aquí mediante JS -->
+      </select>
+    </div>
 
     <table style="width:100%; background:white; border-collapse: collapse;">
       <thead>
@@ -88,7 +102,7 @@
         </tr>
       </thead>
       <tbody id="tablaHorarios" style="text-align:center;">
-        <!-- Llenado por JS -->
+        <!-- Aquí se llenarán los horarios con JS -->
       </tbody>
     </table>
   </section>
