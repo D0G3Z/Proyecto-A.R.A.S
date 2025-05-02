@@ -1,6 +1,14 @@
 document.addEventListener('DOMContentLoaded', async function () {
     const API_URL = 'http://localhost:3000/api';
 
+    // Recuperar el id_docente desde el localStorage
+    const idDocente = localStorage.getItem('id_usuario');
+    
+    if (!idDocente) {
+        alert('No se encontró el ID del docente. Por favor, inicie sesión.');
+        return;
+    }
+
     const tablaAlumnos = document.getElementById('tablaAlumnos');
 
     // Cargar alumnos con grado desde la nueva ruta

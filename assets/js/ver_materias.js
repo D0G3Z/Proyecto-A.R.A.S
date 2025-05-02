@@ -18,23 +18,58 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         console.log('Respuesta de la API:', data);  // Agrega esto para ver la respuesta completa del backend
 
-        if (data.success) {
-            tablaMaterias.innerHTML = "";
-            // Cargar las materias en la tabla
-            data.materias.forEach(materia => {
-                const fila = `
+        if (data.success && Array.isArray(data.materias)) {
+            tablaMaterias.innerHTML = '';
+
+            data.materias.forEach(m => {
+                tablaMaterias.insertAdjacentHTML('beforeend', `
                     <tr>
-                        <td>${materia.materia}</td>
-                        <td>${materia.grado_y_nivel}</td>  
+                        <td><strong>${m.materia}</strong></td>
+                        <td>${m.grado_y_nivel}</td>
+                        <td>${m.seccion}</td>
+                        <td>
+                            <button class="btn ver-alumnos"    data-id="${m.id_materia}">Ver Alumnos</button>
+                            <button class="btn asignar-tarea"  data-id="${m.id_materia}">Asignar Tarea</button>
+                            <button class="btn ingresar-nota"   data-id="${m.id_materia}">Ingresar Nota</button>
+                        </td>
                     </tr>
-                `;
-                tablaMaterias.innerHTML += fila;
+                `);
             });
+
+            // después de haber pintado la tabla:
+            document.querySelectorAll('.ver-alumnos').forEach(btn => {
+                btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                window.location.href = `ver_alumnos.html?materia=${id}`;
+                });
+            });
+            document.querySelectorAll('.asignar-tarea').forEach(btn => {
+                btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                window.location.href = `asignar_tarea.html?materia=${id}`;
+                });
+            });
+            document.querySelectorAll('.ingresar-nota').forEach(btn => {
+                btn.addEventListener('click', () => {
+                const id = btn.dataset.id;
+                window.location.href = `ingresar_notas.html?materia=${id}`;
+                });
+            });
+
         } else {
             alert('No se encontraron materias para este docente.');
+            tablaMaterias.innerHTML = `
+                <tr>
+                  <td colspan="4" style="text-align:center;">
+                    No tienes materias asignadas.
+                  </td>
+                </tr>`;
         }
     } catch (error) {
         console.error('Error al obtener las materias:', error);
         alert('Error al obtener las materias del docente.');
     }
+
+    
+    
 });
