@@ -107,13 +107,44 @@ async function getGrados(req, res) {
 async function getSecciones(req, res) {
     try {
         await sql.connect(config);
-        const result = await sql.query`SELECT id_seccion, nombre FROM seccion`;
+        const result = await sql.query`SELECT id_seccion, letra FROM seccion`;
         res.json({ success: true, result: result.recordset });
     } catch (error) {
         console.error('Error al obtener secciones:', error);
         res.status(500).json({ success: false });
     }
 }
+
+async function obtenerHorariosPorFiltro(req, res) {
+    const { nivel, grado, seccion } = req.params;
+    try {
+      await sql.connect(config);
+      const result = await sql.query`
+        SELECT 
+          h.id_horario,
+          h.dia_semana,
+          h.hora_inicio,
+          h.hora_fin,
+          d.nombres + ' ' + d.apellido_paterno AS nombre_docente,
+          m.nombre                     AS nombre_materia,
+          g.nombre + ' ' + 
+            (CASE WHEN g.id_nivel = 1 THEN 'Primaria' ELSE 'Secundaria' END) 
+                                      AS nombre_grado
+        FROM horario_clase h
+        JOIN docente d ON h.id_docente = d.id_docente
+        JOIN materia m ON h.id_materia = m.id_materia
+        JOIN grado g   ON h.id_grado   = g.id_grado
+        WHERE g.id_nivel   = ${nivel}
+          AND h.id_grado   = ${grado}
+          AND h.id_seccion = ${seccion}
+        ORDER BY h.hora_inicio
+      `;
+      res.json({ success: true, horarios: result.recordset });
+    } catch (error) {
+      console.error('Error al obtener horarios filtrados:', error);
+      res.status(500).json({ success: false, message: 'Error al obtener horarios' });
+    }
+  }
 
 module.exports = {
     getHorarios,
@@ -123,7 +154,8 @@ module.exports = {
     getMaterias,
     getGrados,
     getSecciones,
-    getDocentesPorNivel,       // ✅ este debe estar exportado
+    getDocentesPorNivel,
+    obtenerHorariosPorFiltro,       
     getMateriasPorDocente,
     getGradosPorNivel,
     getListAlumnos,

@@ -10,6 +10,7 @@ const {
     getSecciones,
     getDocentesPorNivel,
     getMateriasPorDocente,
+    obtenerHorariosPorFiltro,
     getGradosPorNivel,
     getListDocentes,
     getListAlumnos,
@@ -18,6 +19,7 @@ const {
 
 
 router.get('/horarios', getHorarios);
+router.get('/horarios/:nivel/:grado/:seccion', obtenerHorariosPorFiltro);
 router.post('/horarios', crearHorario);
 router.delete('/horarios/:id', eliminarHorario);
 

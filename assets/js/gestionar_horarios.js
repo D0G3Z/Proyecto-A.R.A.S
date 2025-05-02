@@ -1,177 +1,226 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const API_URL = 'http://localhost:3000/api';
-
-    const nivelSelect = document.getElementById('nivel');
+    const API_URL       = 'http://localhost:3000/api';
+    const nivelSelect   = document.getElementById('nivel');
     const docenteSelect = document.getElementById('docente');
     const materiaSelect = document.getElementById('materia');
-    const gradoSelect = document.getElementById('grado');
+    const gradoSelect   = document.getElementById('grado');
+    const seccionSelect = document.getElementById('seccion');
     const tablaHorarios = document.getElementById('tablaHorarios');
-    const formHorario = document.getElementById('formHorario');
-    const SECCION_FIJA_ID = 1; // ID de sección "U"
+    const formHorario   = document.getElementById('formHorario');
 
-    // === Función para convertir hora (HH:mm) a minutos ===
+    const RECREOS = [
+        { start: "10:30", end: "10:45" },
+        { start: "12:15", end: "12:35" }
+      ];
+
+    // Convierte "HH:mm" → minutos totales
     function timeToMinutes(time) {
-        const [hours, minutes] = time.split(':');
-        return parseInt(hours) * 60 + parseInt(minutes); // Convierte a minutos
+        const [h, m] = time.split(':');
+        return parseInt(h, 10) * 60 + parseInt(m, 10);
     }
 
-    // === Cargar grados (no depende del nivel en este caso) ===
-    async function cargarGrados() {
-        const res = await fetch(`${API_URL}/grados`);
-        const data = await res.json();
-        if (data.success) {
-            gradoSelect.innerHTML = `<option value="">Seleccionar Grado</option>`;
-            data.result.forEach(g => {
-                const option = document.createElement('option');
-                option.value = g.id_grado;
-                option.textContent = g.nombre;
-                gradoSelect.appendChild(option);
-            });
+    // Carga TODAS las secciones
+    async function cargarSecciones() {
+        try {
+            const res  = await fetch(`${API_URL}/secciones`);
+            const data = await res.json();
+
+            seccionSelect.innerHTML = `<option value="">Seleccionar Sección</option>`;
+            if (data.success) {
+                data.result.forEach(s => {
+                    const o = document.createElement('option');
+                    o.value       = s.id_seccion;
+                    o.textContent = s.letra;
+                    seccionSelect.appendChild(o);
+                });
+            } else {
+                alert('No se encontraron secciones');
+            }
+        } catch (err) {
+            console.error('Error al cargar secciones:', err);
+            alert('Error al cargar secciones');
         }
     }
 
-    // === Al cambiar nivel, cargar docentes filtrados ===
-    nivelSelect.addEventListener('change', async function () {
-        const idNivel = this.value;
+    // Cuando cambia el nivel, recarga docentes y grados
+    nivelSelect.addEventListener('change', async () => {
+        const idNivel = nivelSelect.value;
         if (!idNivel) return;
 
-        // === DOCENTES POR NIVEL ===
-        const docentesRes = await fetch(`${API_URL}/docentes/nivel/${idNivel}`);
-        const docentesData = await docentesRes.json();
-        docenteSelect.innerHTML = `<option value="">Seleccionar Docente</option>`;
-        materiaSelect.innerHTML = `<option value="">Seleccionar Materia</option>`;
-        if (docentesData.success) {
-            docentesData.result.forEach(d => {
-                const option = document.createElement('option');
-                option.value = d.id_docente;
-                option.textContent = d.nombre_completo;
-                docenteSelect.appendChild(option);
-            });
+        // Docentes por nivel
+        try {
+            const r1 = await fetch(`${API_URL}/docentes/nivel/${idNivel}`);
+            const d1 = await r1.json();
+            docenteSelect.innerHTML = `<option value="">Seleccionar Docente</option>`;
+            materiaSelect.innerHTML = `<option value="">Seleccionar Materia</option>`;
+            if (d1.success) {
+                d1.result.forEach(d => {
+                    const o = document.createElement('option');
+                    o.value       = d.id_docente;
+                    o.textContent = d.nombre_completo;
+                    docenteSelect.appendChild(o);
+                });
+            }
+        } catch (e) {
+            console.error('Error al cargar docentes:', e);
         }
 
-        // === GRADOS POR NIVEL ===
-        const gradosRes = await fetch(`${API_URL}/grados/nivel/${idNivel}`);
-        const gradosData = await gradosRes.json();
-        gradoSelect.innerHTML = `<option value="">Seleccionar Grado</option>`;
-        if (gradosData.success) {
-            gradosData.result.forEach(g => {
-                const option = document.createElement('option');
-                option.value = g.id_grado;
-                option.textContent = g.nombre;
-                gradoSelect.appendChild(option);
-            });
-        }
-    });
-
-    // === Al cambiar docente, cargar sus materias ===
-    docenteSelect.addEventListener('change', async function () {
-        const idDocente = this.value;
-        if (!idDocente) return;
-
-        const res = await fetch(`${API_URL}/docente/${idDocente}/materias`);
-        const data = await res.json();
-
-        materiaSelect.innerHTML = `<option value="">Seleccionar Materia</option>`;
-
-        if (data.success) {
-            data.result.forEach(m => {
-                const option = document.createElement('option');
-                option.value = m.id_materia;
-                option.textContent = m.nombre;
-                materiaSelect.appendChild(option);
-            });
+        // Grados por nivel
+        try {
+            const r2 = await fetch(`${API_URL}/grados/nivel/${idNivel}`);
+            const d2 = await r2.json();
+            gradoSelect.innerHTML = `<option value="">Seleccionar Grado</option>`;
+            if (d2.success) {
+                d2.result.forEach(g => {
+                    const o = document.createElement('option');
+                    o.value       = g.id_grado;
+                    o.textContent = g.nombre;
+                    gradoSelect.appendChild(o);
+                });
+            }
+        } catch (e) {
+            console.error('Error al cargar grados:', e);
         }
     });
 
-    // === Cargar horarios existentes ===
+    // Cuando cambia el docente, recarga sus materias
+    docenteSelect.addEventListener('change', async () => {
+        const idDoc = docenteSelect.value;
+        if (!idDoc) return;
+
+        try {
+            const r  = await fetch(`${API_URL}/docente/${idDoc}/materias`);
+            const d  = await r.json();
+            materiaSelect.innerHTML = `<option value="">Seleccionar Materia</option>`;
+            if (d.success) {
+                d.result.forEach(m => {
+                    const o = document.createElement('option');
+                    o.value       = m.id_materia;
+                    o.textContent = m.nombre;
+                    materiaSelect.appendChild(o);
+                });
+            }
+        } catch (e) {
+            console.error('Error al cargar materias:', e);
+        }
+    });
+
+    // Carga y pinta todos los horarios
     async function cargarHorarios() {
-        const res = await fetch(`${API_URL}/horarios`);
-        const data = await res.json();
-
-        if (data.success) {
-            tablaHorarios.innerHTML = "";
-            data.horarios.forEach(h => {
-                const fila = `
-                    <tr>
-                        <td>${h.nombre_docente}</td>
-                        <td>${h.nombre_materia}</td>
-                        <td>${h.nombre_grado}</td>
-                        <td>${h.dia_semana}</td>
-                        <td>${h.hora_inicio}</td>
-                        <td>${h.hora_fin}</td>
-                        <td>
-                            <button onclick="eliminarHorario(${h.id_horario})" style="background:red; color:white;">Eliminar</button>
-                        </td>
-                    </tr>
-                `;
-                tablaHorarios.innerHTML += fila;
-            });
+        try {
+            const res  = await fetch(`${API_URL}/horarios`);
+            const data = await res.json();
+            tablaHorarios.innerHTML = '';
+            if (data.success) {
+                data.horarios.forEach(h => {
+                    tablaHorarios.innerHTML += `
+                        <tr>
+                          <td>${h.nombre_docente}</td>
+                          <td>${h.nombre_materia}</td>
+                          <td>${h.nombre_grado}</td>
+                          <td>${h.dia_semana}</td>
+                          <td>${h.hora_inicio}</td>
+                          <td>${h.hora_fin}</td>
+                          <td>
+                            <button onclick="eliminarHorario(${h.id_horario})" 
+                                    style="background:red;color:white;border:none;padding:5px 10px;cursor:pointer;">
+                              Eliminar
+                            </button>
+                          </td>
+                        </tr>`;
+                });
+            }
+        } catch (err) {
+            console.error('Error al obtener horarios:', err);
         }
     }
 
-    // === Registrar nuevo horario ===
-    formHorario.addEventListener('submit', async function (e) {
+    // Envía el formulario para crear un nuevo horario
+    formHorario.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const horaInicio = document.getElementById('hora_inicio').value;
-        const horaFin = document.getElementById('hora_fin').value;
+        const dia        = document.getElementById('dia').value;
+        const inicio     = document.getElementById('hora_inicio').value;
+        const fin        = document.getElementById('hora_fin').value;
+        const idDocente  = docenteSelect.value;
+        const idMat      = materiaSelect.value;
+        const idGr       = gradoSelect.value;
+        const idSec      = seccionSelect.value;
+        const idNi       = nivelSelect.value;
 
-        // Verificar que todos los campos estén llenos
-        if (!docenteSelect.value || !materiaSelect.value || !gradoSelect.value || !nivelSelect.value || !document.getElementById('dia').value || !horaInicio || !horaFin) {
+        // Validación
+        if (!idDocente || !idMat || !idGr || !idSec || !idNi || !dia || !inicio || !fin) {
             alert('Por favor complete todos los campos');
             return;
         }
-
-        // Validar que la hora de fin sea mayor que la hora de inicio
-        if (timeToMinutes(horaFin) <= timeToMinutes(horaInicio)) {
+        if (timeToMinutes(fin) <= timeToMinutes(inicio)) {
             alert('La hora de fin debe ser posterior a la hora de inicio');
             return;
         }
 
+        const RECREOS = [
+            { start: "10:30", end: "10:45" },
+            { start: "12:15", end: "12:35" }
+          ];
+          for (const { start, end } of RECREOS) {
+            const r0 = timeToMinutes(start), r1 = timeToMinutes(end);
+            if (timeToMinutes(inicio) < r1 && timeToMinutes(fin) > r0) {
+              alert(`No puedes agendar en recreo (${start}–${end})`);
+              return;
+            }
+          }
+
+        // Construimos el objeto
         const nuevoHorario = {
-            id_docente: docenteSelect.value,
-            id_materia: materiaSelect.value,
-            id_grado: gradoSelect.value,
-            id_seccion: SECCION_FIJA_ID,  // Sección siempre fija
-            dia_semana: document.getElementById('dia').value,
-            hora_inicio: horaInicio,
-            hora_fin: horaFin
+            id_docente:  idDocente,
+            id_materia:  idMat,
+            id_grado:    idGr,
+            id_seccion:  idSec,
+            dia_semana:  dia,
+            hora_inicio: inicio,
+            hora_fin:    fin
         };
 
-        const res = await fetch(`${API_URL}/horarios`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(nuevoHorario)
-        });
-
-        const data = await res.json();
-        if (data.success) {
-            alert('Horario registrado correctamente');
-            formHorario.reset();
-            cargarHorarios();
-        } else {
+        // Lo enviamos
+        try {
+            const r  = await fetch(`${API_URL}/horarios`, {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify(nuevoHorario)
+            });
+            const d  = await r.json();
+            if (d.success) {
+                alert('Horario registrado correctamente');
+                formHorario.reset();
+                cargarHorarios();
+            } else {
+                alert('Error al registrar horario: ' + (d.message || ''));
+            }
+        } catch (err) {
+            console.error('Error al registrar horario:', err);
             alert('Error al registrar horario');
         }
     });
 
-    cargarGrados();
-    cargarHorarios();
-});
-
-// === Función global para eliminar ===
-async function eliminarHorario(id) {
-    if (confirm("¿Seguro que deseas eliminar este horario?")) {
-        const res = await fetch(`http://localhost:3000/api/horarios/${id}`, {
-            method: 'DELETE'
-        });
-        const data = await res.json();
-
-        if (data.success) {
-            alert('Horario eliminado');
-            document.querySelector('#tablaHorarios').innerHTML = "";
-            document.dispatchEvent(new Event('DOMContentLoaded'));
-        } else {
+    // Función global para eliminar
+    window.eliminarHorario = async function (id) {
+        if (!confirm('¿Seguro que deseas eliminar este horario?')) return;
+        try {
+            const r = await fetch(`${API_URL}/horarios/${id}`, { method: 'DELETE' });
+            const d = await r.json();
+            if (d.success) {
+                alert('Horario eliminado');
+                cargarHorarios();
+            } else {
+                alert('Error al eliminar horario');
+            }
+        } catch (err) {
+            console.error('Error al eliminar horario:', err);
             alert('Error al eliminar horario');
         }
-    }
-}
+    };
+
+    // Inicialización
+    cargarSecciones();
+    cargarHorarios();
+});
