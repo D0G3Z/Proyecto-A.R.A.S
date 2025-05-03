@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestionar Horarios - A.R.A.S</title>
+  <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body>
+
+<header class="home">
+  <nav class="navbar_home">
+    <div class="navbar_left">
+      <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+    </div>
+    <div class="navbar_center">
+      <h1>Gestionar Horarios</h1>
+    </div>
+    <div class="navbar_right">
+      <a href="home_director.html" style="color:white; text-decoration:none;">Volver</a>
+    </div>
+  </nav>
+</header>
+
+<main class="contenedor-principal" style="flex-direction: column; align-items: center; padding: 30px;">
+  <!-- Formulario para agregar horario -->
+  <section style="background:white; padding:20px; border-radius:10px; width:90%; max-width:800px; margin-bottom: 40px;">
+    <h2>Nuevo Horario</h2>
+    <form id="formHorario" style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
+        <!-- Filtros -->
+        <select id="nivel" required>
+          <option value="">Seleccionar Nivel</option>
+          <option value="1">Primaria</option>
+          <option value="2">Secundaria</option>
+        </select>
+      
+        <select id="docente" required>
+          <option value="">Seleccionar Docente</option>
+        </select>
+      
+        <select id="grado" required>
+          <option value="">Seleccionar Grado</option>
+        </select>
+        
+        <select id="seccion" required>
+          <option value="">Seleccionar Sección</option>
+        </select>
+      
+        <select id="materia" required>
+          <option value="">Seleccionar Materia</option>
+        </select>
+      
+        <select id="dia" required>
+          <option value="">Día</option>
+          <option>Lunes</option>
+          <option>Martes</option>
+          <option>Miércoles</option>
+          <option>Jueves</option>
+          <option>Viernes</option>
+        </select>
+      
+        <div style="grid-column: span 2;">
+            <label for="hora_inicio"><strong>Hora de Inicio:</strong></label>
+            <input type="time" id="hora_inicio" required />
+          </div>
+          <div style="grid-column: span 2;">
+            <label for="hora_fin"><strong>Hora de Fin:</strong></label>
+            <input type="time" id="hora_fin" required />
+          </div>
+      
+        <button type="submit" style="grid-column: span 2;">Guardar Horario</button>
+      </form>
+  </section>
+
+  <!-- Tabla de horarios -->
+  <section style="width: 90%; max-width: 1000px;">
+    <h2>Horarios Registrados</h2>
+
+    <table style="width:100%; background:white; border-collapse: collapse;">
+      <thead>
+        <tr style="background:#2c3e50; color:white;">
+          <th>Docente</th>
+          <th>Materia</th>
+          <th>Nivel y Grado</th>
+          <th>Día</th>
+          <th>Inicio</th>
+          <th>Fin</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaHorarios" style="text-align:center;">
+        <!-- Aquí se llenarán los horarios con JS -->
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<script src="../assets/js/auth.js"></script>
+<script>
+  verificarRol("DIRECTOR");
+</script>
+<script src="../assets/js/gestionar_horarios.js"></script>
+
+</body>
+</html>

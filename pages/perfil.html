@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - A.R.A.S</title>
+    <link rel="stylesheet" href="../assets/css/desing.css">
+</head>
+<body>
+
+<header class="home">
+    <nav class="navbar_home">
+        <div class="navbar_left">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="60">
+        </div>
+        <div class="navbar_center">
+            <h1>Mi Perfil</h1>
+        </div>
+        <div class="navbar_right">
+            <a href="home.html" style="color:white; text-decoration:none;">Regresar</a>
+        </div>
+    </nav>
+</header>
+
+<main class="contenedor-principal" style="flex-direction: column; align-items: center; padding: 30px;">
+    
+    <section class="perfil-info" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 400px;">
+        <h2 style="text-align:center;">Datos Personales</h2>
+        <div id="datosPerfil" style="margin-top: 20px;">
+            <!-- Aquí se cargan los datos -->
+        </div>
+        
+        <h2 style="text-align:center; margin-top:40px;">Cambiar Contraseña</h2>
+        <form id="formCambiarContrasena" style="margin-top: 20px;">
+            <input type="password" id="nuevaContrasena" placeholder="Nueva Contraseña" required style="width:100%; padding:10px; margin-bottom:15px;">
+            <button type="submit" style="width:100%; padding:10px; background-color: #e50914; color:white; border:none; border-radius:5px;">Actualizar</button>
+        </form>
+    </section>
+
+</main>
+
+<script src="../assets/js/perfil.js"></script>
+
+</body>
+</html>

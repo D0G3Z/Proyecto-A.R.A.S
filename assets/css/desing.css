@@ -1,0 +1,364 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header.super {
+    background-image: url('../img/plantel.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.contenedor-central {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.nota {
+    width: 250px;
+    height: auto;
+}
+
+.logo {
+    width: 550px;
+    height: auto;
+}
+
+.login-box {
+    background-color: rgba(230, 230, 230, 0.95);
+    padding: 30px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.login-box h2 {
+    color: #e50914;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-box label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #444;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+}
+
+.login-box button {
+    width: 100%;
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-box .terminos {
+    text-align: center;
+    color: #888;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+main {
+    padding: 0px;
+}
+
+/* Título superior */
+.navbar_carrusel {
+    background-color: #e50914;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.navbar_carrusel h1 {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Carrusel de videos */
+.video-carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-carousel {
+    overflow: hidden;
+    width: calc(100% - 80px); /* Ajusta este valor según sea necesario */
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    box-sizing: content-box;
+    padding: 10px;
+    align-items: center;
+}
+
+.carousel-item video {
+    width: 100%;
+    max-width: 100%; /* Ajusta el tamaño máximo del video */
+    height: auto;
+    border-radius: 15px;
+}
+
+/* Botones de navegación del carrusel */
+.carousel-btn {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 2rem;
+    padding: 10px;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.carousel-btn.prev {
+    left: 10px;
+}
+
+.carousel-btn.next {
+    right: 10px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Pie de página (footer rojo) */
+.navbar_carrusel_2 {
+    background-color: #e50914;
+    color: white;
+    padding: 20px 0;
+}
+
+.contenedor-central {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.Direction, .numero {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Direction p, .numero p {
+    margin: 0;
+    font-size: 18px;
+}
+/*-----------------------------------------*/
+/* Estilos generales para el header */
+header.home {
+    width: 100%;
+    background-color: #35475b; /* Color de fondo */
+    padding: 10px;
+}
+
+/* Navbar como flex horizontal: izquierda y derecha */
+.navbar_home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Importante: arriba alineados */
+}
+.navbar_center h1 {
+    text-align: center; 
+    margin-bottom: 10px;
+    color: #ecf0f1;
+}
+
+/* Contenedor de logo y menú */
+.navbar_left {
+    display: flex;
+    flex-direction: column; /* Logo arriba, menú abajo */
+    align-items: flex-start;
+}
+
+/* Contenedor de iconos derecha */
+.navbar_right {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Espacio entre campanita y perfil */
+}
+
+.perfil-container {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-perfil {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.menu-perfil a {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.menu-perfil a:hover {
+    background-color: #f2f2f2;
+}
+
+/* Menú de navegación */
+.nav-links_home {
+    display: flex;
+    flex-direction: column; /* Opciones una debajo de otra */
+    list-style: none;
+    margin-top: 10px;
+    padding: 0;
+}
+
+.nav-links_home li {
+    margin-bottom: 10px;
+}
+
+.nav-links_home a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Iconos de campanita y perfil */
+.navbar_right img {
+    cursor: pointer;
+}
+.tabla-horario {
+    margin: 20px;
+    padding: 10px;
+}
+
+.tabla-horario table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabla-horario th, .tabla-horario td {
+    padding: 12px;
+    border: 1px solid #ccc;
+}
+
+.tabla-horario th {
+    background-color: #35475b;
+    color: white;
+}
+/* Contenedor que divide en dos columnas: menú lateral + contenido */
+.contenedor-principal {
+    display: flex;
+    height: 100vh; /* Ocupa toda la pantalla */
+}
+
+/* Menú lateral izquierdo */
+.navbar_home_infe {
+    width: 250px;
+    background-color: #2c3e50;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.nav-links_home {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-links_home li {
+    margin: 15px 0;
+}
+
+.nav-links_home a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease-in-out;
+}
+
+.nav-links_home a:hover {
+    color: #1abc9c;
+}
+
+/* Sección principal donde irá la tabla */
+.tabla-horario {
+    flex: 1; /* Toma todo el espacio sobrante */
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.tabla-horario h1 {
+    text-align: center; 
+    margin-bottom: 30px; 
+}
+.tabla-horario p {
+    font-size: 18px;
+    color: #666;
+}
+
+.celda-recreo {
+    background-color: #f1c40f;
+    color: #2c3e50;
+    font-weight: bold;
+    text-align: center;
+}
+
+.detalle-curso {
+    font-size: 0.8em;
+    color: #555;
+}

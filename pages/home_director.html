@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel del Director - A.R.A.S</title>
+    <link rel="stylesheet" href="../assets/css/desing.css">
+</head>
+<body>
+
+<header class="home">
+    <nav class="navbar_home">
+        <div class="navbar_left">
+            <img src="../assets/img/Logo1.png" alt="Logo A.R.A.S" width="60">
+        </div>
+        <div class="navbar_center">
+            <h1>Panel del Director</h1>
+        </div>
+        <div class="navbar_right">
+            <div class="perfil-container">
+                <img src="../assets/img/perfil.png" alt="Perfil" id="perfil-icon" width="40">
+                <div class="menu-perfil" id="menu-perfil">
+                    <a href="perfil.html">Ver Perfil</a>
+                    <a href="#" id="cerrar-sesion">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="contenedor-principal" style="flex-direction: column; align-items: center; padding: 30px;">
+    
+    <!-- Tarjetas resumen -->
+    <section style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-bottom: 40px;">
+        <div class="card" style="background-color:#2c3e50; color:white; padding:20px; border-radius:10px; min-width:250px;">
+            <h3>Total de Docentes Activos</h3>
+            <p id="totalDocentes" style="font-size: 28px;">0</p>
+        </div>
+        <div class="card" style="background-color:#16a085; color:white; padding:20px; border-radius:10px; min-width:250px;">
+            <h3>Total de Alumnos Activos</h3>
+            <p id="totalAlumnos" style="font-size: 28px;">0</p>
+        </div>
+    </section>
+
+    <!-- Accesos rápidos -->
+    <section style="margin-bottom: 40px;">
+        <h2 style="text-align:center;">Accesos Rápidos</h2>
+        <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px;">
+            <a href="gestionar_horarios.html" class="boton-acceso" style="background:#2980b9; padding:20px; border-radius:10px; color:white; text-decoration:none;">Gestionar Horarios</a>
+            <a href="ver_docentes.html" class="boton-acceso" style="background:#27ae60; padding:20px; border-radius:10px; color:white; text-decoration:none;">Ver Docentes</a>
+            <a href="ver_alumnos.html" class="boton-acceso" style="background:#c0392b; padding:20px; border-radius:10px; color:white; text-decoration:none;">Ver Alumnos</a>
+        </div>
+    </section>
+
+    <section style="width: 90%; max-width: 1000px;">
+        <h2 style="text-align:center; margin-bottom:20px;">Horarios de Clases</h2>
+        <!-- Filtros por nivel (Primaria, Secundaria) -->
+        <div style="margin-bottom: 20px;">
+            <label for="nivelSelect">Seleccionar Nivel:</label>
+            <select id="nivelSelect">
+                <option value="">Seleccionar Nivel</option>
+                <option value="1">Primaria</option>
+                <option value="2">Secundaria</option>
+            </select>
+            
+            <label for="gradoSelect">Seleccionar Grado:</label>
+            <select id="gradoSelect">
+                <option value="">Seleccionar Grado</option>
+                <!-- Opciones de grados se llenarán con JS -->
+            </select>
+            
+            <label for="seccionSelect">Seleccionar Sección:</label>
+            <select id="seccionSelect">
+                <option value="">Seleccionar Sección</option>
+                <!-- Opciones de secciones se llenarán con JS -->
+            </select>
+        </div>
+    
+        <!-- Tabla de horarios -->
+        <table style="width:100%; background:white; border-collapse: collapse; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+            <thead>
+                <tr style="background:#35475b; color:white;">
+                    <th>Hora</th>
+                    <th>Lunes</th>
+                    <th>Martes</th>
+                    <th>Miércoles</th>
+                    <th>Jueves</th>
+                    <th>Viernes</th>
+                </tr>
+            </thead>
+            <tbody id="tablaHorarios" style="text-align:center;">
+                <!-- Aquí se llenarán los horarios con JS -->
+            </tbody>
+        </table>
+    </section>
+    
+
+</main>
+
+<script src="../assets/js/funcionalidad.js"></script>
+<script src="../assets/js/home_director.js"></script>
+<script src="../assets/js/auth.js"></script> 
+<script>
+    verificarRol("DIRECTOR");
+</script>
+
+
+</body>
+</html>

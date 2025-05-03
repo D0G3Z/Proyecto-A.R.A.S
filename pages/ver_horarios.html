@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Horarios - Docente</title>
+  <link rel="stylesheet" href="../assets/css/desing.css" />
+  <style>
+    /* Para centrar y dar estilo a las celdas de recreo */
+    .celda-recreo {
+      background: #f8f8f8;
+      font-style: italic;
+      color: #888;
+    }
+    /* Estilo para la info de grado/sección */
+    .detalle-curso {
+      font-size: 0.85em;
+      color: #555;
+      margin-top: 4px;
+    }
+    /* Asegura que la hora quede bien alineada */
+    table td, table th {
+      padding: 6px;
+      text-align: center;
+      border: 1px solid #ddd;
+      vertical-align: top;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="home">
+    <nav class="navbar_home">
+      <div class="navbar_left">
+        <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+      </div>
+      <div class="navbar_center">
+        <h1>Mis Horarios</h1>
+      </div>
+      <div class="navbar_right">
+        <a href="home_docente.html" style="color:white; text-decoration:none;">Volver</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="contenedor-principal">
+    <nav class="navbar_home_infe">
+      <ul class="nav-links_home">
+        <li><a href="ver_horarios.html">Ver Horarios</a></li>
+        <li><a href="ver_materias.html">Ver Materias</a></li>
+        <li><a href="ver_alumnos.html">Ver Mis Alumnos</a></li>
+        <li><a href="marcar_asistencia.html">Marcar Asistencia</a></li>
+        <li><a href="tareas.html">Asignar / Ver Tareas</a></li>
+        <li><a href="ver_notas.html">Ver / Ingresar Notas</a></li>
+        <li><a href="ver_perfil.html">Ver Perfil</a></li>
+      </ul>
+    </nav>
+
+    <section class="tabla-horario" style="width:100%; overflow-x:auto; margin-top:20px;">
+      <table style="width:100%; border-collapse: collapse; box-shadow:0 0 5px rgba(0,0,0,0.1);">
+        <thead>
+          <tr style="background:#35475b; color:white;">
+            <th>Hora</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+          </tr>
+        </thead>
+        <tbody id="tablaHorarios">
+          <!-- Aquí inyecta JS -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="../assets/js/funcionalidad.js"></script>
+  <script src="../assets/js/ver_horarios.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script>verificarRol("DOCENTE");</script>
+</body>
+</html>
