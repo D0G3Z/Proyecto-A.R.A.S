@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    /*font-family: Arial, sans-serif;*/
     margin: 0;
     padding: 0;
 }
@@ -189,7 +189,7 @@ main {
 header.home {
     width: 100%;
     background-color: #35475b; /* Color de fondo */
-    padding: 10px;
+    padding: 5px;
 }
 
 /* Navbar como flex horizontal: izquierda y derecha */
@@ -362,3 +362,15 @@ header.home {
     font-size: 0.8em;
     color: #555;
 }
+
+.bg-azul {
+    background-color: #2c3e50; /* Color de fondo */
+}
+
+.bg-azul1 {
+    background-color: #35475b; /* Color de fondo */
+}
+
+.text-ecf0f1 {
+    color: #ecf0f1 !important;
+  }
