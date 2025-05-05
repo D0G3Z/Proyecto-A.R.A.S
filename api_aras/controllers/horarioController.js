@@ -285,15 +285,18 @@ async function getHorariosDocente(req, res) {
     try {
         await sql.connect(config);
         const result = await sql.query`
-            SELECT 
+            SELECT
                 h.id_horario,
+                h.id_materia,
+                h.id_grado,
+                h.id_seccion,
                 m.nombre   AS materia,
                 g.nombre   AS grado,
                 g.id_nivel AS nivel,
                 s.letra    AS seccion,
                 h.dia_semana,
-                FORMAT(h.hora_inicio, 'hh\\:mm') AS hora_inicio,
-                FORMAT(h.hora_fin,    'hh\\:mm') AS hora_fin
+                FORMAT(h.hora_inicio,'hh\\:mm') AS hora_inicio,
+                FORMAT(h.hora_fin,   'hh\\:mm') AS hora_fin
             FROM horario_clase h
             JOIN materia   m ON h.id_materia = m.id_materia
             JOIN grado     g ON h.id_grado   = g.id_grado

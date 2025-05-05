@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marcar Asistencia - Docente</title>
+  <link rel="stylesheet" href="../assets/css/desing.css" />
+  <style>
+    .debug { background:#f7f7f7; padding:10px; margin-bottom:15px; font-family: monospace; }
+    .celda-recreo { background:#f1c40f; }
+    table, th, td { border:1px solid #ddd; }
+    th, td { padding:8px; text-align:center; }
+  </style>
+</head>
+<body>
+
+<header class="home">
+  <nav class="navbar_home">
+    <div class="navbar_left">
+      <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+    </div>
+    <div class="navbar_center">
+      <h1>Marcar Asistencia</h1>
+    </div>
+    <div class="navbar_right">
+      <a href="ver_materias.html" style="color:white; text-decoration:none;">Volver</a>
+    </div>
+  </nav>
+</header>
+
+<main class="contenedor-principal" style="padding:30px; max-width:800px; margin:auto;">
+
+  <!-- Zona de depuración -->
+  <div class="debug">
+    <div>Hora actual (cliente): <span id="debugHoraActual">--:--</span></div>
+    <div>Franja programada: <span id="debugFranja">--:-- → --:--</span></div>
+    <div>Día hoy: <span id="debugDiaHoy">----</span></div>
+    <div>Sesión encontrada: <span id="debugSesion">ninguna</span></div>
+  </div>
+
+  <!-- Mensaje cuando estés fuera de la franja -->
+  <div id="mensajeFuera" style="display:none; color:#c0392b; font-weight:bold; margin-bottom:20px;"></div>
+
+  <!-- Formulario de asistencias -->
+  <form id="formAsistencia" style="display:none;">
+    <table style="width:100%; border-collapse: collapse; background:white;">
+      <thead>
+        <tr style="background:#2c3e50; color:white;">
+          <th>#</th>
+          <th>Alumno</th>
+          <th>Falta</th>
+          <th>Tardanza</th>
+          <th>Presente</th>
+        </tr>
+      </thead>
+      <tbody id="tblAsistencias">
+        <!-- Se rellenará vía JS -->
+      </tbody>
+    </table>
+    <button type="submit" style="margin-top:15px; padding:10px 20px;">Guardar Asistencia</button>
+  </form>
+
+</main>
+
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/marcar_asistencia.js"></script>
+<script>verificarRol("DOCENTE");</script>
+</body>
+</html>

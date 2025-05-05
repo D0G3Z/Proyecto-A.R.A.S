@@ -32,6 +32,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                                     data-grado   ="${m.id_grado}"
                                     data-seccion ="${m.id_seccion}"
                             >Ver Alumnos</button>
+                            <button 
+                                    class="btn marcar-asistencia"  
+                                    data-materia="${m.id_materia}"
+                                    data-grado   ="${m.id_grado}"
+                                    data-seccion ="${m.id_seccion}"
+                            >Marcar Asistencia</button>
                             <button class="btn asignar-tarea"  data-id="${m.id_materia}">Asignar Tarea</button>
                             <button class="btn ingresar-nota"   data-id="${m.id_materia}">Ingresar Nota</button>
                         </td>
@@ -48,6 +54,16 @@ document.addEventListener('DOMContentLoaded', async function () {
                     seccion:  btn.dataset.seccion
                   });
                   window.location.href = `ver_alumnos.html?${params}`;
+                });
+            });
+            document.querySelectorAll('.marcar-asistencia').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const params = new URLSearchParams({
+                    materia:  btn.dataset.materia,
+                    grado:    btn.dataset.grado,
+                    seccion:  btn.dataset.seccion   // ¡éste YA es numérico!
+                    });
+                    window.location.href = `marcar_asistencia.html?${params}`;
                 });
             });
             document.querySelectorAll('.asignar-tarea').forEach(btn => {

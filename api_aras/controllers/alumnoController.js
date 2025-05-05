@@ -5,11 +5,11 @@ async function getAlumnosPorMateria(req, res) {
   // los leemos de req.query en lugar de req.params
   const id_materia = parseInt(req.query.materia, 10);
   const id_grado   = parseInt(req.query.grado,   10);
-  const seccion    = req.query.seccion; // es texto
+  const id_seccion = parseInt(req.query.seccion, 10);
 
-  console.log('getAlumnosPorMateria →', { id_materia, id_grado, seccion });
+  console.log('getAlumnosPorMateria →', { id_materia, id_grado, id_seccion });
 
-  if (!id_materia || !id_grado || !seccion) {
+  if (!id_materia || !id_grado || !id_seccion) {
     return res.status(400).json({
       success: false,
       message: 'Faltan materia, grado o sección en la consulta'
@@ -28,7 +28,7 @@ async function getAlumnosPorMateria(req, res) {
       JOIN alumno al
         ON mat.id_alumno = al.id_alumno
       WHERE mat.id_grado   = ${id_grado}
-        AND mat.id_seccion = ${seccion}
+        AND mat.id_seccion = ${id_seccion}
         AND EXISTS (
           SELECT 1
           FROM horario_clase h
