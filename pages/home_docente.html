@@ -4,45 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Docente A.R.A.S</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="../assets/css/desing.css" />
 </head>
-<body>
+<body class="bg-light">
 
 <header class="home">
-    <nav class="navbar_home">
-        <div class="navbar_left">
-            <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
-        </div>
-        <div class="navbar_center">
-            <h1>Bienvenido Docente</h1>
-        </div>
-        <div class="navbar_right">
-            <a href="login.html" style="color:white; text-decoration:none;">Cerrar sesión</a>
-        </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-35475b px-3">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="../assets/img/Logo1.png" alt="Logo" width="40" class="me-3">
+        Bienvenido Docente
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDocente" aria-controls="navbarDocente" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarDocente">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="login.html">Cerrar sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>
 
-<main class="contenedor-principal">
-    <!-- Barra lateral izquierda con las opciones del docente -->
-    <nav class="navbar_home_infe">
-        <ul class="nav-links_home">
-            <li><a href="ver_horarios.html">Ver Horarios</a></li>
-            <li><a href="ver_materias.html">Ver Materias</a></li>
-            <li><a href="ver_alumnos.html">Ver Mis Alumnos</a></li>
-            <li><a href="marcar_asistencia.html">Marcar Asistencia</a></li>
-            <li><a href="tareas.html">Asignar / Ver Tareas</a></li>
-            <li><a href="ver_notas.html">Ver / Ingresar Notas</a></li>
-            <li><a href="ver_perfil.html">Ver Perfil</a></li>
-        </ul>
-    </nav>
+<main class="d-flex">
+  <!-- Sidebar mejorada -->
+  <nav class="bg-white border-end vh-100 p-3" style="width: 250px;">
+    <div class="list-group">
+      <a href="ver_horarios.html" class="list-group-item list-group-item-action">Ver Horarios</a>
+      <a href="ver_materias.html" class="list-group-item list-group-item-action">Ver Materias</a>
+      <a href="ver_alumnos.html" class="list-group-item list-group-item-action">Ver Mis Alumnos</a>
+      <a href="marcar_asistencia.html" class="list-group-item list-group-item-action">Marcar Asistencia</a>
+      <a href="tareas.html" class="list-group-item list-group-item-action">Asignar / Ver Tareas</a>
+      <a href="ver_notas.html" class="list-group-item list-group-item-action">Ver / Ingresar Notas</a>
+      <a href="ver_perfil.html" class="list-group-item list-group-item-action">Ver Perfil</a>
+    </div>
+  </nav>
 
-    <!-- Contenido principal con un pequeño mensaje de bienvenida -->
-    <section class="tabla-horario">
-        <h1>¡Bienvenido al Panel del Docente!</h1>
-        <p>Selecciona una opción del menú para comenzar.</p>	
-    </section>
+  <!-- Contenido principal -->
+  <section class="flex-fill p-4 animate__animated animate__fadeIn">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <h1 class="card-title text-35475b">¡Bienvenido al Panel del Docente!</h1>
+        <p class="card-text">Selecciona una opción del menú para comenzar.</p>
+      </div>
+    </div>
+  </section>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="../assets/js/funcionalidad.js"></script>
 <script src="../assets/js/auth.js"></script> 
 <script>

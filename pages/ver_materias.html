@@ -4,57 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Materias - Docente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="../assets/css/desing.css" />
 </head>
-<body>
+<body class="bg-light">
 
 <header class="home">
-    <nav class="navbar_home">
-        <div class="navbar_left">
-            <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+    <nav class="navbar navbar-expand-lg navbar-dark bg-35475b px-3">
+        <div class="container-fluid">
+          <div class="navbar-brand d-flex align-items-center">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="40" class="me-3">
+            Mis Materias
+          </div>
+          <a href="home_docente.html" class="btn btn-outline-light btn-sm">Volver</a>
         </div>
-        <div class="navbar_center">
-            <h1>Mis Materias</h1>
-        </div>
-        <div class="navbar_right">
-            <a href="home_docente.html" style="color:white; text-decoration:none;">Volver</a>
-        </div>
-    </nav>
+      </nav>
 </header>
 
-<main class="contenedor-principal">
-    <nav class="navbar_home_infe">
-        <ul class="nav-links_home">
-            <li><a href="ver_horarios.html">Ver Horarios</a></li>
-            <li><a href="ver_materias.html">Ver Materias</a></li>
-            <li><a href="ver_alumnos.html">Ver Mis Alumnos</a></li>
-            <li><a href="marcar_asistencia.html">Marcar Asistencia</a></li>
-            <li><a href="tareas.html">Asignar / Ver Tareas</a></li>
-            <li><a href="ver_notas.html">Ver / Ingresar Notas</a></li>
-            <li><a href="ver_perfil.html">Ver Perfil</a></li>
-        </ul>
-    </nav>
-
-    <!-- Tabla de materias -->
-    <section class="tabla-horario">
-        <h2>Mis Materias</h2>
-        <table style="width:100%; background:white; border-collapse: collapse;">
-            <thead>
-                <tr style="background:#2c3e50; color:white;">
-                    <th>Materia</th>
-                    <th>Grado y Nivel</th>  
-                    <th>Sección</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="tablaMaterias" style="text-align:center;">
-                <!-- Aquí se cargarán las materias desde JS -->
-            </tbody>
+<main class="d-flex">
+    <!-- Sidebar -->
+    <div class="bg-white border-end vh-100 p-3" style="width: 250px;">
+        <div class="list-group">
+          <a href="ver_horarios.html" class="list-group-item list-group-item-action">Ver Horarios</a>
+          <a href="ver_materias.html" class="list-group-item list-group-item-action active">Ver Materias</a>
+          <a href="ver_alumnos.html" class="list-group-item list-group-item-action">Ver Mis Alumnos</a>
+          <a href="marcar_asistencia.html" class="list-group-item list-group-item-action">Marcar Asistencia</a>
+          <a href="tareas.html" class="list-group-item list-group-item-action">Asignar / Ver Tareas</a>
+          <a href="ver_notas.html" class="list-group-item list-group-item-action">Ver / Ingresar Notas</a>
+          <a href="ver_perfil.html" class="list-group-item list-group-item-action">Ver Perfil</a>
+        </div>
+      </div>
+  
+    <!-- Contenido principal -->
+    <section class="flex-grow-1 p-4 animate__animated animate__fadeIn">
+      <h2 class="mb-4">Mis Materias</h2>
+      <div class="table-responsive shadow-sm bg-white rounded">
+        <table class="table table-bordered mb-0 text-center">
+          <thead class="bg-azul1 text-ecf0f1">
+            <tr>
+              <th>Materia</th>
+              <th>Grado y Nivel</th>
+              <th>Sección</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tablaMaterias">
+            <!-- Aquí se cargarán las materias desde JS -->
+          </tbody>
         </table>
+      </div>
     </section>
+  </main>
 
-</main>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="../assets/js/funcionalidad.js"></script>
 <script src="../assets/js/ver_materias.js"></script>
 <script src="../assets/js/auth.js"></script>

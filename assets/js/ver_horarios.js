@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (RECREOS.has(slot)) {
         const td = document.createElement('td');
         td.textContent = 'Recreo';
-        td.classList.add('celda-recreo');
+        td.classList.add('celda-recreo', 'bg-warning', 'text-dark', 'fw-bold');
         tr.appendChild(td);
         return;
       }
