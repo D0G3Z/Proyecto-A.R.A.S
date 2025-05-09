@@ -7,6 +7,7 @@ const directorRoutes = require('./routes/directorRoutes');
 const horarioRoutes = require('./routes/horarioRoutes');
 const materiaRoutes = require('./routes/materiaRoutes');
 const seccionesRoutes = require('./routes/seccionesRoutes');
+const alumnoRoutes = require('./routes/alumnoRoutes'); 
 
 const app = express();
 const PORT = 3000;
@@ -22,6 +23,7 @@ app.use('/api', directorRoutes);
 app.use('/api', horarioRoutes);
 app.use('/api', materiaRoutes);
 app.use('/api', seccionesRoutes);
+app.use('/api', alumnoRoutes);
 
 // Servidor escuchando
 app.listen(PORT, () => {

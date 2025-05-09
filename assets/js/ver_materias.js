@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', async function () {
         const res = await fetch(`${API_URL}/materias/docente/${idDocente}`);
         const data = await res.json();
 
-        console.log('Respuesta de la API:', data);  // Agrega esto para ver la respuesta completa del backend
-
         if (data.success && Array.isArray(data.materias)) {
             tablaMaterias.innerHTML = '';
 
@@ -28,7 +26,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                         <td>${m.grado_y_nivel}</td>
                         <td>${m.seccion}</td>
                         <td>
-                            <button class="btn ver-alumnos"    data-id="${m.id_materia}">Ver Alumnos</button>
+                            <button
+                                    class="btn ver-alumnos"
+                                    data-materia="${m.id_materia}"
+                                    data-grado   ="${m.id_grado}"
+                                    data-seccion ="${m.id_seccion}"
+                            >Ver Alumnos</button>
                             <button class="btn asignar-tarea"  data-id="${m.id_materia}">Asignar Tarea</button>
                             <button class="btn ingresar-nota"   data-id="${m.id_materia}">Ingresar Nota</button>
                         </td>
@@ -39,8 +42,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             // después de haber pintado la tabla:
             document.querySelectorAll('.ver-alumnos').forEach(btn => {
                 btn.addEventListener('click', () => {
-                const id = btn.dataset.id;
-                window.location.href = `ver_alumnos.html?materia=${id}`;
+                  const params = new URLSearchParams({
+                    materia:  btn.dataset.materia,
+                    grado:    btn.dataset.grado,
+                    seccion:  btn.dataset.seccion
+                  });
+                  window.location.href = `ver_alumnos.html?${params}`;
                 });
             });
             document.querySelectorAll('.asignar-tarea').forEach(btn => {
