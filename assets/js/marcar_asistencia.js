@@ -1,14 +1,26 @@
 // assets/js/marcar_asistencia.js
-
 document.addEventListener('DOMContentLoaded', async () => {
   const API_URL       = 'http://localhost:3000/api';
-  const debugHoraEl   = document.getElementById('debugHoraActual');
-  const debugDiaEl    = document.getElementById('debugDiaHoy');
-  const debugFranjaEl = document.getElementById('debugFranja');
-  const debugSesionEl = document.getElementById('debugSesion');
-  const mensajeFuera  = document.getElementById('mensajeFuera');
-  const formAsis      = document.getElementById('formAsistencia');
-  const tblAsis       = document.getElementById('tblAsistencias');
+  const horaActualEl = document.getElementById('horaActual');
+  const fechaHoyEl   = document.getElementById('fechaHoy');
+  const mensajeFuera = document.getElementById('mensajeFuera');
+  const formAsis     = document.getElementById('formAsistencia');
+  const tblAsis      = document.getElementById('tblAsistencias');
+
+  function updateDateTime() {
+  const ahora   = new Date();
+  const hh      = String(ahora.getHours()).padStart(2,'0');
+  const mm      = String(ahora.getMinutes()).padStart(2,'0');
+  const horaStr = `${hh}:${mm}`;
+  horaActualEl.textContent = horaStr;
+
+  // Si quieres también actualizar la fecha
+  const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  fechaHoyEl.textContent   = ahora.toLocaleDateString('es-ES', opcionesFecha);
+  }
+
+  updateDateTime();
+  setInterval(updateDateTime, 1000);
 
   // 1) Leer parámetros de URL
   const params     = new URLSearchParams(window.location.search);
@@ -26,12 +38,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const hh      = String(ahora.getHours()).padStart(2,'0');
   const mm      = String(ahora.getMinutes()).padStart(2,'0');
   const horaStr = `${hh}:${mm}`;
-  const dias    = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-  const hoyDia  = dias[ahora.getDay()];
-
-  // Rellenar debug
-  debugHoraEl.textContent   = horaStr;
-  debugDiaEl.textContent    = hoyDia;
+  const opcionesFecha = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  horaActualEl.textContent = horaStr;
+  fechaHoyEl.textContent   = ahora.toLocaleDateString('es-ES', opcionesFecha);
 
   try {
     // 3) Traer todos los horarios del docente, incluyendo IDs
@@ -40,6 +49,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!dataHor.success) throw new Error('No se pudieron cargar horarios');
 
     // 4) Buscar la sesión que encaje con materia, grado, sección, día y hora
+    const dias      = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+    const hoyDia    = dias[ahora.getDay()];
     const sesion = dataHor.horarios.find(h =>
       h.dia_semana  === hoyDia &&
       // convertir a número en caso de venir como string
@@ -60,8 +71,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Dentro de la franja → mostrar form
-    debugFranjaEl.textContent = `${sesion.hora_inicio} → ${sesion.hora_fin}`;
-    debugSesionEl.textContent = 'encontrada';
     formAsis.style.display     = 'block';
 
     // 5) Traer alumnos activos de esta materia/grado/sección
