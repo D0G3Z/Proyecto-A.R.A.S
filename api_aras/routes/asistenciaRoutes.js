@@ -9,6 +9,6 @@ const {
 router.post('/asistencias', guardarAsistencia);
 
 // GET para leer la asistencia existente de un horario y fecha
-router.get('/asistencias/horario/:id_horario', getAsistenciasPorHorarioFecha);
+router.get('/asistencias/horario/:horario_id', getAsistenciasPorHorarioFecha);
 
 module.exports = router;

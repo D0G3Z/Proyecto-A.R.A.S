@@ -38,8 +38,19 @@ document.addEventListener('DOMContentLoaded', async function () {
                                     data-grado   ="${m.id_grado}"
                                     data-seccion ="${m.id_seccion}"
                             >Marcar Asistencia</button>
-                            <button class="btn asignar-tarea"  data-id="${m.id_materia}">Asignar Tarea</button>
-                            <button class="btn ingresar-nota"   data-id="${m.id_materia}">Ingresar Nota</button>
+                            <button
+                                    class="btn asignar-tarea" 
+                                    data-materia       ="${m.id_materia}"
+                                    data-grado         ="${m.id_grado}"
+                                    data-seccion    ="${m.id_seccion}"
+                                    data-display   ="${m.materia} – ${m.grado_y_nivel} ${m.seccion}"
+                            >Asignar Tarea</button>
+                            <button
+                                    class="btn ingresar-nota"
+                                    data-materia   ="${m.id_materia}"
+                                    data-grado     ="${m.id_grado}"
+                                    data-seccion   ="${m.id_seccion}"
+                            >Ingresar Nota</button>
                         </td>
                     </tr>
                 `);
@@ -66,12 +77,19 @@ document.addEventListener('DOMContentLoaded', async function () {
                     window.location.href = `marcar_asistencia.html?${params}`;
                 });
             });
+            // en ver_materias.js, justo después de pintar la tabla:
             document.querySelectorAll('.asignar-tarea').forEach(btn => {
-                btn.addEventListener('click', () => {
-                const id = btn.dataset.id;
-                window.location.href = `asignar_tarea.html?materia=${id}`;
+            btn.addEventListener('click', () => {
+                const params = new URLSearchParams({
+                    materia: btn.dataset.materia,
+                    grado:   btn.dataset.grado,
+                    seccion: btn.dataset.seccion,
+                    display: btn.dataset.display
                 });
+                window.location.href = `asignar_tarea.html?${params}`;
             });
+            });
+
             document.querySelectorAll('.ingresar-nota').forEach(btn => {
                 btn.addEventListener('click', () => {
                 const id = btn.dataset.id;

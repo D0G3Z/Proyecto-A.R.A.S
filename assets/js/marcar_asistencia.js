@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const formAsis     = document.getElementById('formAsistencia');
   const tblAsis      = document.getElementById('tblAsistencias');
 
-  // 1) Hora y fecha en tiempo real
+  //
+  // 1) Reloj en tiempo real
+  //
   function updateDateTime() {
     const ahora = new Date();
     const hh    = String(ahora.getHours()).padStart(2,'0');
@@ -23,7 +25,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateDateTime();
   setInterval(updateDateTime, 1000);
 
-  // 2) Leer params
+  //
+  // 2) Leer parámetros de URL y sesión
+  //
   const params    = new URLSearchParams(window.location.search);
   const idMateria = parseInt(params.get('materia'), 10);
   const idGrado   = parseInt(params.get('grado'),   10);
@@ -35,12 +39,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    // 3) Traer horarios del docente
+    //
+    // 3) Traer horarios y detectar si estamos en la franja
+    //
     const resHor  = await fetch(`${API_URL}/horarios/docente/${idDoc}`);
     const dataHor = await resHor.json();
     if (!dataHor.success) throw new Error('No se pudieron cargar horarios');
 
-    // 4) Buscar la sesión activa
     const ahora   = new Date();
     const hh      = String(ahora.getHours()).padStart(2,'0');
     const mm      = String(ahora.getMinutes()).padStart(2,'0');
@@ -51,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const sesion = dataHor.horarios.find(h =>
       h.dia_semana  === hoyDia &&
       parseInt(h.id_materia, 10) === idMateria &&
-      parseInt(h.id_grado,   10) === idGrado &&
+      parseInt(h.id_grado,   10) === idGrado   &&
       parseInt(h.id_seccion, 10) === idSeccion &&
       horaStr >= h.hora_inicio &&
       horaStr <= h.hora_fin
@@ -63,25 +68,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       return;
     }
 
-    // 5) Mostrar formulario y ocultar mensaje
+    //
+    // 4) Mostrar form y ocultar mensaje de fuera
+    //
     formAsis.classList.remove('d-none');
     mensajeFuera.classList.add('d-none');
 
-    // 6) Traer alumnos activos
-    const urlAl = (
-      `${API_URL}/alumnos/por-materia`
-      + `?materia=${idMateria}`
-      + `&grado=${sesion.id_grado}`
-      + `&seccion=${encodeURIComponent(sesion.id_seccion)}`
-    );
+    //
+    // 5) Traer alumnos activos de esta materia/grado/sección
+    //
+    const urlAl = `${API_URL}/alumnos/por-materia`
+                + `?materia=${idMateria}`
+                + `&grado=${sesion.id_grado}`
+                + `&seccion=${encodeURIComponent(sesion.id_seccion)}`;
+
     const resAl  = await fetch(urlAl);
     const dataAl = await resAl.json();
     if (!dataAl.success) throw new Error('No hay alumnos o error al cargarlos');
+    const alumnos = dataAl.alumnos;  // **importante**: guardamos aquí para usar más abajo
 
-    // **AQUÍ** definimos la variable alumnos
-    const alumnos = dataAl.alumnos;
-
-    // 7) Traer asistencias ya registradas hoy
+    //
+    // 6) Traer asistencias previas (si las hay) y mapearlas
+    //
     const fechaISO = ahora.toISOString().slice(0,10);
     const resAs    = await fetch(
       `${API_URL}/asistencias/horario/${sesion.id_horario}?fecha=${fechaISO}`
@@ -89,45 +97,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     const dAs      = await resAs.json();
     const mapAs    = {};
     if (dAs.success) {
-      dAs.asistencias.forEach(a => { mapAs[a.id_alumno] = a.estado; });
+      dAs.asistencias.forEach(a => {
+        mapAs[a.id_alumno] = a.estado; // 'F','T' o 'P'
+      });
     }
 
-    // 8) Pintar tabla: un <td> por radio
+    //
+    // 7) Pintar tabla UNA VEZ
+    //
     tblAsis.innerHTML = '';
     alumnos.forEach((al, idx) => {
       const prev = mapAs[al.id_alumno] || 'F';
       const name = `asis_${al.id_alumno}`;
 
       const tr = document.createElement('tr');
-
-      // índice
-      tr.innerHTML += `<td>${idx+1}</td>`;
-      // nombre
-      tr.innerHTML += `<td>${al.nombres} ${al.apellido_paterno} ${al.apellido_materno}</td>`;
-      // falta
-      tr.innerHTML += `
+      tr.innerHTML = `
+        <td>${idx+1}</td>
+        <td>${al.nombres} ${al.apellido_paterno} ${al.apellido_materno}</td>
         <td><input type="radio" name="${name}" value="F" ${prev==='F'?'checked':''}></td>
-      `;
-      // tardanza
-      tr.innerHTML += `
         <td><input type="radio" name="${name}" value="T" ${prev==='T'?'checked':''}></td>
-      `;
-      // presente
-      tr.innerHTML += `
         <td><input type="radio" name="${name}" value="P" ${prev==='P'?'checked':''}></td>
       `;
-
       tblAsis.appendChild(tr);
     });
 
-    // 9) Enviar asistencias
+    //
+    // 8) Listener de envío (un solo attach)
+    //
     formAsis.addEventListener('submit', async e => {
       e.preventDefault();
       const filas = Array.from(tblAsis.querySelectorAll('tr'));
       const regs  = filas.map(row => {
-        const anyRadio = row.querySelector('input[type="radio"]');
-        const idAl     = +anyRadio.name.split('_')[1];
-        const val      = row.querySelector(`input[name="asis_${idAl}"]:checked`).value;
+        const any = row.querySelector('input[type="radio"]');
+        const idAl = +any.name.split('_')[1];
+        const val  = row.querySelector(`input[name="asis_${idAl}"]:checked`).value;
         return {
           id_alumno: idAl,
           falta:     val==='F'?1:0,
@@ -146,11 +149,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
       });
       const jd = await resp.json();
-      if (jd.success) {
-        alert('Asistencia guardada correctamente');
-      } else {
-        alert('Error al guardar asistencia: ' + jd.message);
-      }
+      alert(jd.success
+        ? 'Asistencia guardada correctamente'
+        : 'Error al guardar asistencia: ' + jd.message
+      );
     });
 
   } catch (err) {

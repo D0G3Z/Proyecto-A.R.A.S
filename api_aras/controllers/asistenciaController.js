@@ -1,3 +1,4 @@
+// api_aras/controllers/asistenciaController.js
 const sql    = require('mssql');
 const config = require('../config/db');
 
@@ -35,7 +36,7 @@ async function guardarAsistencia(req, res) {
       `;
       if (!matRes.recordset.length) {
         console.warn(`Sin matrícula para alumno ${id_alumno}, se omite.`);
-        continue; // simplemente saltar este alumno
+        continue; // saltar este alumno si no encuentra matrícula
       }
       const id_matricula = matRes.recordset[0].id_matricula;
 
@@ -44,12 +45,13 @@ async function guardarAsistencia(req, res) {
                    : tardanza ? 'T'
                    :            'F';
 
-      // 2c) ¿Ya hay un registro para esta fecha?
+      // 2c) ¿Ya hay un registro para esta fecha y horario?
       const existe = await sql.query`
         SELECT TOP 1 id_asistencia
         FROM asistencia_alumno
         WHERE id_matricula = ${id_matricula}
-          AND fecha        = ${fecha}
+          AND id_horario   = ${horario_id}
+          AND fecha        = CONVERT(date, ${fecha})
       `;
       if (existe.recordset.length) {
         // 2d) Actualizar
@@ -59,10 +61,10 @@ async function guardarAsistencia(req, res) {
           WHERE id_asistencia = ${existe.recordset[0].id_asistencia}
         `;
       } else {
-        // 2e) Insertar nuevo (bimestre fijo = 1; adáptalo si lo necesitas)
+        // 2e) Insertar nuevo (sin bimestre, o usa uno fijo si lo necesitas)
         await sql.query`
-          INSERT INTO asistencia_alumno (id_matricula, fecha, estado)
-          VALUES (${id_matricula}, ${fecha}, ${estado})
+          INSERT INTO asistencia_alumno (id_matricula, id_horario, fecha, estado)
+          VALUES (${id_matricula}, ${horario_id}, CONVERT(date, ${fecha}), ${estado})
         `;
       }
     }
@@ -79,35 +81,42 @@ async function guardarAsistencia(req, res) {
   }
 }
 
-// GET /api/asistencias/horario/:id_horario?fecha=YYYY-MM-DD
+// GET /api/asistencias/horario/:horario_id?fecha=YYYY-MM-DD
 async function getAsistenciasPorHorarioFecha(req, res) {
   const horario_id = parseInt(req.params.horario_id, 10);
-  const fecha      = req.query.fecha;  // esperas YYYY-MM-DD
-
+  const fecha      = req.query.fecha;  // formato YYYY-MM-DD
+  console.log('horario_id:', horario_id, 'fecha:', fecha);
   if (!horario_id || !fecha) {
     return res.status(400).json({
       success: false,
       message: 'Falta horario_id o fecha en la consulta'
     });
   }
+  
 
   try {
     await sql.connect(config);
     const result = await sql.query`
       SELECT
-        a.id_asistencia,
         mat.id_alumno,
         al.nombres,
         al.apellido_paterno,
         al.apellido_materno,
-        a.estado
-      FROM asistencia_alumno a
+        COALESCE(a.estado, 'F') AS estado
+      FROM horario_clase h
+      -- emparejamos solo esa sesión
       JOIN matricula mat
-        ON a.id_matricula = mat.id_matricula
+        ON mat.id_grado   = h.id_grado
+       AND mat.id_seccion = h.id_seccion
       JOIN alumno al
-        ON mat.id_alumno = al.id_alumno
-      WHERE a.id_horario = ${horario_id}
-        AND a.fecha      = CONVERT(date, ${fecha})
+        ON mat.id_alumno  = al.id_alumno
+      LEFT JOIN asistencia_alumno a
+        ON a.id_matricula = mat.id_matricula
+       AND a.id_horario   = h.id_horario
+       AND a.fecha        = CONVERT(date, ${fecha})
+      WHERE h.id_horario = ${horario_id}
+        AND al.estado     = 'Activo'
+      ORDER BY al.apellido_paterno, al.nombres
     `;
     res.json({
       success: true,
@@ -123,6 +132,6 @@ async function getAsistenciasPorHorarioFecha(req, res) {
 }
 
 module.exports = {
-  getAsistenciasPorHorarioFecha,
-  guardarAsistencia
+  guardarAsistencia,
+  getAsistenciasPorHorarioFecha
 };
