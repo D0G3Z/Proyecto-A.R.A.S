@@ -9,10 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const displayCurso = params.get('display') || '-';
 
   // Referencias DOM
-  const tablaTareas   = document.getElementById('tablaTareas');
-  const formTarea     = document.getElementById('formTarea');
-  const descInput     = document.getElementById('descripcion');
-  const fechaInput    = document.getElementById('fechaEntrega');
+    const tablaTareas   = document.getElementById('tablaTareas');
+    const formTarea     = document.getElementById('formTarea');
+    const descInput     = document.getElementById('descripcion');
+    const fechaInput = document.getElementById('fechaEntrega');
+    const ahora = new Date();
+    const dosCifras = n => String(n).padStart(2,'0');
+    const yyyy = ahora.getFullYear();
+    const mm   = dosCifras(ahora.getMonth()+1);
+    const dd   = dosCifras(ahora.getDate());
+    const hh   = dosCifras(ahora.getHours());
+    const min  = dosCifras(ahora.getMinutes());
+    fechaInput.min = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
 
   // Mostrar nombre del curso
   document.getElementById('tituloMateria').textContent = displayCurso;
