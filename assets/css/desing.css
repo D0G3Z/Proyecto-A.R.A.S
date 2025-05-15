@@ -1,189 +1,398 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+.body-pass {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-image: url('../img/plantel.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #000;
 }
 
-header.super {
-    background-image: url('../img/plantel.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+/* CONTENEDOR PRINCIPAL */
+.aula-virtual {
+  background-color: rgba(255, 255, 254, 0.95);
+  margin: 40px auto;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row; /* Cambiado de column a row */
+  align-items: flex-start;
+  justify-content: space-between; /* Separación izquierda-derecha */
+  gap: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.contenedor-central {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    max-width: 1200px;
+.aula-virtual h2 {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.nota {
-    width: 250px;
-    height: auto;
+.botones-acceso {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
 }
 
-.logo {
-    width: 550px;
-    height: auto;
+.btn-acceso {
+  padding: 15px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.login-box {
-    background-color: rgba(230, 230, 230, 0.95);
-    padding: 30px;
-    border-radius: 5px;
-    width: 300px;
+.btn-acceso.admin {
+  background-color: #fbbf24;
+  color: #000;
 }
 
-.login-box h2 {
-    color: #e50914;
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: left;
+.btn-acceso.estudiante {
+  background-color: #8b5cf6;
+  color: #fff;
 }
 
-.login-box label {
-    display: block;
-    margin: 10px 0 5px;
-    color: #444;
+.btn-acceso:hover {
+  transform: scale(1.05);
+}
+.contenido-superior {
+  flex: 1 1 45%; /* Ajuste de ancho */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.iconos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 25px;
+  width: 100%;
+}
+.icono-box {
+  background-color: white;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.3s;
 }
 
-.login-box input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #aaa;
-    border-radius: 3px;
+.icono-box img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 5px;
 }
 
-.login-box button {
-    width: 100%;
-    background-color: #e50914;
-    color: white;
-    border: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
+.icono-box p {
+  font-size: 12px;
+  margin: 0;
 }
 
-.login-box .terminos {
-    text-align: center;
-    color: #888;
-    font-size: 14px;
-    margin-top: 10px;
+.icono-box:hover {
+  transform: scale(1.1);
 }
 
-main {
-    padding: 0px;
+/* CALENDARIO Y VIDEO LADO A LADO */
+.contenido-inferior {
+  flex: 1 1 50%; /* Ajuste de ancho */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: flex-start;
 }
 
-/* Título superior */
-.navbar_carrusel {
-    background-color: #e50914;
-    padding: 20px 0;
-    text-align: center;
-}
-
-.navbar_carrusel h1 {
-    color: white;
-    font-size: 24px;
-    margin: 0;
-}
-
-/* Carrusel de videos */
 .video-carousel-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-    padding: 100px 0;
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  margin: 30px auto;
+  width: 90%;
+  max-width: 800px;
+  overflow: hidden;
 }
-
 .video-carousel {
-    overflow: hidden;
-    width: calc(100% - 80px); /* Ajusta este valor según sea necesario */
+  overflow: hidden;
 }
-
 .carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
+  display: flex;
+  transition: transform 0.5s ease;
 }
-
 .carousel-item {
-    min-width: 100%;
-    box-sizing: content-box;
-    padding: 10px;
-    align-items: center;
+  min-width: 100%;
+  padding: 10px;
 }
 
 .carousel-item video {
-    width: 100%;
-    max-width: 100%; /* Ajusta el tamaño máximo del video */
-    height: auto;
-    border-radius: 15px;
+  width: 100%;
+  border-radius: 10px;
 }
 
-/* Botones de navegación del carrusel */
 .carousel-btn {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: none;
-    color: white;
-    font-size: 2rem;
-    padding: 10px;
-    cursor: pointer;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  background-color: #ff2b06;
+  color: white;
+  border: none;
+  font-size: 10px;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .carousel-btn.prev {
-    left: 10px;
+  left: 0;
 }
 
 .carousel-btn.next {
-    right: 10px;
+  right: 0;
 }
 
-.carousel-btn:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+.upn-right {
+  flex: 1 1 35%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Pie de página (footer rojo) */
-.navbar_carrusel_2 {
-    background-color: #e50914;
-    color: white;
-    padding: 20px 0;
+.logo-box img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-.contenedor-central {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-around;
+.calendar {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 15px;
+  width: 100%;
+}
+
+.event {
+  margin-bottom: 15px;
+  border-left: 4px solid #ff2b06;
+  padding-left: 10px;
+}
+
+.event-date {
+  font-weight: bold;
+  color: #ff2b06;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+@media screen and (max-width: 768px) {
+  .aula-virtual {
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
+  }
 
-.Direction, .numero {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+  .contenido-superior, .contenido-inferior {
+    max-width: 100%;
+  }
 
-.Direction p, .numero p {
+  .video-carousel-container, .calendario {
+    max-width: 100%;
     margin: 0;
-    font-size: 18px;
+  }
 }
+
+
+
+/* Estilo general del cuerpo */
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* HEADER - login */
+/* Estilo nuevo para alinear el header correctamente */
+.body-login {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-image: url('../img/plantel.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+.fondo-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px); /* Puedes ajustar el nivel de desenfoque */
+  background-color: rgba(255, 255, 255, 0.2); /* Ligero velo blanco opcional */
+  z-index: 1;
+}
+.login-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 254, 0);
+  max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.login-container h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    font-size: 32px;
+  color: #333;
+  background-color: rgba(35, 44, 77, 0.2);
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(45, 86, 158, 0.1);
+  backdrop-filter: blur(5px);
+  
+}
+.contenedor-central {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+
+.login-box {
+  background-color: #e9ecef;
+  padding: 25px;
+  border-radius: 12px;
+  width: 320px;
+}
+
+
+.login-box h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.login-box label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #ff2b06;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-box .terminos {
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.terminos-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.terminos-link {
+  cursor: pointer;
+}
+
+.terminos-link span {
+  color: #ff2b06;
+  text-decoration: underline;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-contenido {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.modal h3 {
+  margin-top: 0;
+}
+
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .login-box {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+
+
+  .icon-item {
+    width: 120px;
+  }
+}
+
 /*-----------------------------------------*/
 /* Estilos generales para el header */
 header.home {

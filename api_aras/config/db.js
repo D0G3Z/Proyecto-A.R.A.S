@@ -1,9 +1,9 @@
 const sql = require('mssql');
 
 const config = {
-    user: 'aras_admin',
+    user: 'admin_aras',
     password: 'aras1234',
-    server: 'DESKTOP-PN15LOT',
+    server: 'DESKTOP-6GT7ILU',
     database: 'db_ARAS',
     options: {
         encrypt: false,

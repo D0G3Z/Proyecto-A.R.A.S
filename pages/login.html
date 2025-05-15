@@ -1,76 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A.R.A.S</title>
-    <link rel="stylesheet" href="../assets/css/desing.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A.R.A.S</title>
+  <link rel="stylesheet" href="../assets/css/desing.css"/>
 </head>
-<body>
-    <header class="super">
-        <div class="contenedor-central">
-          <img src="../assets/img/nota.png" alt="Nota" class="nota" />
-      
-          <img src="../assets/img/Logo1.png" alt="Logo" class="logo" />
-      
-          <div class="login-box">
-            <h2>Iniciar Sesión</h2>
-            <form id="login_sesion">
-              <label for="login_usuario">Ingrese su Usuario*</label>
-              <input id="login_usuario" type="text" placeholder="Tu Usuario" required />
-      
-              <label for="login_contraseña">Ingresar Contraseña*</label>
-              <input id="login_contraseña" type="password" placeholder="**********" required />
-      
-              <button  type="submit">Ingresar</button>
-      
-              <p class="terminos">Términos y Condiciones</p>
-            </form>
+<body class="body-login">
+  <!-- Encabezado con Login -->
+   <div class="fondo-blur"></div>
+  
+   <div class="login-container">
+     <h1>
+    ALBERTO RUBENS ALTUNA SOLORZANO
+  </h1>
+    <div class="contenedor-central">
+      <div class="login-box">
+        <h2>Iniciar Sesión</h2>
+        <form id="login_sesion">
+          <label for="login_usuario">Ingrese su Usuario*</label>
+          <input id="login_usuario" type="text" placeholder="Tu Usuario" required />
+
+          <label for="login_contraseña">Ingresar Contraseña*</label>
+          <input id="login_contraseña" type="password" placeholder="**********" required />
+
+          <button type="submit">Ingresar</button>
+            <div class="terminos-container">
+        
+              <label for="check_terminos" class="terminos-link">Leer <span id="abrirModal">Reglamento de la Institución Educativa</span></label>
+            </div>
+            <div id="modal" class="modal">
+          <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h3>Reglamento de la Institución Educativa</h3>
+            <p>
+              Aquí puedes escribir el reglamento detallado, incluyendo normas de conducta, políticas académicas, uso de uniforme, horarios, sanciones, etc.
+            </p>
           </div>
         </div>
-      </header>
-      
-      <main>
-        <!-- Navbar superior -->
-        <nav class="navbar_carrusel">
-          <h1>CONOCE MÁS SOBRE NOSOTROS!</h1>
-        </nav>
-      
-        <!-- Carrusel de videos -->
-        <div class="video-carousel-container">
-          <button class="carousel-btn prev">&#10094;</button>
-          <div class="video-carousel">
-            <div class="carousel-track">
-              <div class="carousel-item">
-                <video src="../assets/videos/Prueba del robot.mp4" controls></video>
-              </div>
-              <div class="carousel-item">
-                <video src="../assets/videos/Prueba del robot.mp4" controls></video>
-              </div>
-              <div class="carousel-item">
-                <video src="../assets/videos/Prueba del robot.mp4" controls></video>
-              </div>
-            </div>
-          </div>
-          <button class="carousel-btn next">&#10095;</button>
-        </div>
-      
-        <!-- Footer -->
-        <footer class="navbar_carrusel_2">
-          <div class="contenedor-central">
-            <div class="Direction">
-              <img src="../assets/img/local.png" width="50" height="50" alt="Logo">
-              <p>Dirección: Jr. Luna 320</p>
-            </div>
-            <div class="numero">
-              <img src="../assets/img/telefono.png" width="50" height="50" alt="Logo">
-              <p>Contactos: 948 770 253</p>
-            </div>
-          </div>
-        </footer>
-      </main>
-      
-      <script src="../assets/js/funcionalidad.js"></script>    
+
+        </form>
+      </div>
+      </div>
+   </div>
+ 
+
+
+  
+  <script src="../assets/js/funcionalidad.js"></script>
 </body>
 </html>

@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 const loginRoutes = require('./routes/loginRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
 const directorRoutes = require('./routes/directorRoutes');
@@ -15,7 +17,7 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Rutas
+// Rutas API
 app.use('/api', loginRoutes);
 app.use('/api', perfilRoutes);
 app.use('/api', directorRoutes);
@@ -23,7 +25,16 @@ app.use('/api', horarioRoutes);
 app.use('/api', materiaRoutes);
 app.use('/api', seccionesRoutes);
 
-// Servidor escuchando
+// Servir HTML desde /pages
+app.use('/pages', express.static(path.join(__dirname, '..', 'pages')));
+
+app.use('/assets', express.static(path.join(__dirname, '..', 'assets')));
+// Ruta raíz por defecto
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname,'..', 'pages', 'pass_login.html'));
+});
+
+// Iniciar servidor
 app.listen(PORT, () => {
     console.log(`Servidor API escuchando en http://localhost:${PORT}`);
 });
