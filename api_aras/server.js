@@ -11,6 +11,7 @@ const alumnoRoutes = require('./routes/alumnoRoutes');
 const asistenciaRoutes = require('./routes/asistenciaRoutes');
 const tareaRoutes = require('./routes/tareaRoutes');
 const asignRoutes = require('./routes/asignacionRoutes');
+const calificacionRoutes = require('./routes/calificacionRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -30,6 +31,7 @@ app.use('/api', alumnoRoutes);
 app.use('/api', asistenciaRoutes);
 app.use('/api', tareaRoutes);
 app.use('/api', asignRoutes);
+app.use('/api', calificacionRoutes);
 
 
 // Servidor escuchando
