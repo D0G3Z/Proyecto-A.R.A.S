@@ -10,6 +10,7 @@ const seccionesRoutes = require('./routes/seccionesRoutes');
 const alumnoRoutes = require('./routes/alumnoRoutes'); 
 const asistenciaRoutes = require('./routes/asistenciaRoutes');
 const tareaRoutes = require('./routes/tareaRoutes');
+const asignRoutes = require('./routes/asignacionRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -28,6 +29,7 @@ app.use('/api', seccionesRoutes);
 app.use('/api', alumnoRoutes);
 app.use('/api', asistenciaRoutes);
 app.use('/api', tareaRoutes);
+app.use('/api', asignRoutes);
 
 
 // Servidor escuchando

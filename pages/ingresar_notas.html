@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Ingresar Notas - Docente</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/desing.css"/>
+</head>
+<body class="bg-light">
+
+<header class="home">
+  <nav class="navbar navbar-dark bg-35475b px-3">
+    <span class="navbar-brand mb-0 h1">Ingresar / Ver Notas</span>
+    <a href="ver_materias.html" class="btn btn-outline-light btn-sm">Volver</a>
+  </nav>
+</header>
+
+<main class="container my-4">
+  <!-- Info de curso -->
+  <div class="mb-3">
+    <h2 class="h5">
+      Curso: <span id="infoCurso">Cargando...</span>
+    </h2>
+  </div>
+
+  <!-- Tabla de notas -->
+  <form id="formNotas">
+    <table class="table table-bordered bg-white text-center">
+      <thead class="table-secondary">
+        <tr>
+          <th>#</th>
+          <th>Alumno</th>
+          <th>Bimestre 1</th>
+          <th>Bimestre 2</th>
+          <th>Bimestre 3</th>
+          <th>Bimestre 4</th>
+          <th>Promedio</th>
+        </tr>
+      </thead>
+      <tbody id="tblNotas"></tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Guardar Notas</button>
+  </form>
+</main>
+
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/ingresar_notas.js"></script>
+<script>verificarRol("DOCENTE");</script>
+</body>
+</html>

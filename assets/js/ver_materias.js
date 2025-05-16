@@ -39,12 +39,12 @@ document.addEventListener('DOMContentLoaded', async function () {
                                     data-seccion ="${m.id_seccion}"
                             >Marcar Asistencia</button>
                             <button
-                                    class="btn asignar-tarea" 
+                                    class="btn asignaciones" 
                                     data-materia       ="${m.id_materia}"
                                     data-grado         ="${m.id_grado}"
                                     data-seccion    ="${m.id_seccion}"
                                     data-display   ="${m.materia} – ${m.grado_y_nivel} ${m.seccion}"
-                            >Asignar Tarea</button>
+                            >Evaluaciones y Tareas</button>
                             <button
                                     class="btn ingresar-nota"
                                     data-materia   ="${m.id_materia}"
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 });
             });
             // en ver_materias.js, justo después de pintar la tabla:
-            document.querySelectorAll('.asignar-tarea').forEach(btn => {
+            document.querySelectorAll('.asignaciones').forEach(btn => {
             btn.addEventListener('click', () => {
                 const params = new URLSearchParams({
                     materia: btn.dataset.materia,
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     seccion: btn.dataset.seccion,
                     display: btn.dataset.display
                 });
-                window.location.href = `asignar_tarea.html?${params}`;
+                window.location.href = `asignaciones.html?${params}`;
             });
             });
 

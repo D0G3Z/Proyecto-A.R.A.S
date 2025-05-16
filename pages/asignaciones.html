@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evaluaciones y Tareas - Docente</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body class="bg-light">
+
+<header class="home">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-35475b px-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home_docente.html">
+        <img src="../assets/img/Logo1.png" alt="Logo" width="40" class="me-3">
+        Evaluaciones y Tareas
+      </a>
+      <div class="ms-auto">
+        <a href="ver_materias.html" class="btn btn-outline-light btn-sm">Volver</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="container my-4">
+
+  <!-- 1) Encabezado con curso -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="h5">
+      Curso: <span id="cursoTitulo">Cargando…</span>
+    </h2>
+    <button id="btnCrearAsignacion" class="btn btn-success">
+      + Nueva Evaluación
+    </button>
+  </div>
+
+  <!-- 2) Filtro por tipo -->
+  <div class="row mb-3">
+    <div class="col-sm-4">
+      <label for="filtroTipo" class="form-label">Mostrar:</label>
+      <select id="filtroTipo" class="form-select">
+        <option value="">Todas</option>
+        <option value="TAREA">Tareas</option>
+        <option value="EXAMEN">Exámenes</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- 3) Tabla de asignaciones -->
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table table-striped mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Fecha</th>
+            <th style="width:150px">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="bodyAsignaciones">
+          <!-- Se cargarán vía JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/evaluaciones.js"></script>
+<script>verificarRol("DOCENTE");</script>
+</body>
+</html>
