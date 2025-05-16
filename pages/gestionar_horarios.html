@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestionar Horarios - A.R.A.S</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body class="bg-light">
+
+  <header class="bg-azul1 text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <img src="../assets/img/Logo1.png" alt="Logo" width="60" class="me-3">
+        <h1 class="h4 mb-0">Gestionar Horarios</h1>
+      </div>
+      <a href="home_director.html" class="btn btn-outline-light">Volver</a>
+    </div>
+  </header>
+
+<main class="container py-">
+  <!-- Formulario para agregar horario -->
+  <section class="bg-white p-4 rounded shadow-sm mb-5 animate__animated animate__fadeIn">
+    <h2 class="h5 mb-4">Nuevo Horario</h2>
+    <form id="formHorario" class="row g-3">
+      <div class="col-md-6">
+        <label for="nivel" class="form-label">Nivel</label>
+        <select id="nivel" class="form-select" required>
+          <option value="">Seleccionar Nivel</option>
+          <option value="1">Primaria</option>
+          <option value="2">Secundaria</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="docente" class="form-label">Docente</label>
+        <select id="docente" class="form-select" required>
+          <option value="">Seleccionar Docente</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="materia" class="form-label">Materia</label>
+        <select id="materia" class="form-select" required>
+          <option value="">Seleccionar Materia</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="grado" class="form-label">Grado</label>
+        <select id="grado" class="form-select" required>
+          <option value="">Seleccionar Grado</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="seccion" class="form-label">Sección</label>
+        <select id="seccion" class="form-select" required>
+          <option value="">Seleccionar Sección</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="dia" class="form-label">Día</label>
+        <select id="dia" class="form-select" required>
+          <option value="">Día</option>
+          <option>Lunes</option>
+          <option>Martes</option>
+          <option>Miércoles</option>
+          <option>Jueves</option>
+          <option>Viernes</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="hora_inicio" class="form-label">Hora de Inicio</label>
+        <input type="time" id="hora_inicio" class="form-control" required />
+      </div>
+      <div class="col-md-6">
+        <label for="hora_fin" class="form-label">Hora de Fin</label>
+        <input type="time" id="hora_fin" class="form-control" required />
+      </div>
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Guardar Horario</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Tabla de horarios -->
+  <section class="table-responsive shadow-sm rounded mb-5 animate__animated animate__fadeInUp">
+    <h2 class="h5 mb-3 text-center">Horarios Registrados</h2>
+    <table class="table table-bordered bg-white text-center">
+      <thead class="bg-azul1 text-ecf0f1">
+        <tr>
+          <th>Docente</th><th>Materia</th><th>Nivel y Grado</th><th>Día</th><th>Inicio</th><th>Fin</th><th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaHorarios"></tbody>
+    </table>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="../assets/js/auth.js"></script>
+<script> verificarRol("DIRECTOR"); </script>
+<script src="../assets/js/gestionar_horarios.js"></script>
+
+</body>
+</html>

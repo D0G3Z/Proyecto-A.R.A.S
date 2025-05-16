@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marcar Asistencia - Docente</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body class="bg-light">
+
+<header class="home">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-35475b px-3">
+        <div class="container-fluid">
+          <div class="navbar-brand d-flex align-items-center">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="40" class="me-3">
+            Marcar Asistencia
+          </div>
+          <a href="home_docente.html" class="btn btn-outline-light btn-sm">Volver</a>
+        </div>
+      </nav>
+</header>
+
+<main class="container py-4">
+
+  <!-- Fecha y hora -->
+  <div class="mb-4">
+    <p>Hora actual: <strong><span id="horaActual">--:--</span></strong></p>
+    <p>Fecha de hoy: <strong><span id="fechaHoy">----</span></strong></p>
+  </div>
+
+  <!-- Mensaje fuera de franja -->
+  <div id="mensajeFuera" class="alert alert-danger d-none" role="alert"></div>
+
+  <!-- Formulario de asistencia -->
+  <form id="formAsistencia" class="d-none">
+    <table class="table table-bordered bg-white text-center">
+      <thead class="bg-azul1 text-ecf0f1">
+        <tr>
+          <th>#</th>
+          <th>Alumno</th>
+          <th>Falta</th>
+          <th>Tardanza</th>
+          <th>Presente</th>
+        </tr>
+      </thead>
+      <tbody id="tblAsistencias"></tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Guardar Asistencia</button>
+  </form>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script src="../assets/js/marcar_asistencia.js"></script>
+<script>verificarRol("DOCENTE");</script>
+
+</body>
+</html>

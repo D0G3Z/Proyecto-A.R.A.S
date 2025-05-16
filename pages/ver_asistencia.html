@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia - Docente</title>
+    <link rel="stylesheet" href="../assets/css/desing.css" />
+</head>
+<body>
+
+<header class="home">
+    <nav class="navbar_home">
+        <div class="navbar_left">
+            <img src="../assets/img/Logo1.png" alt="Logo" width="60" />
+        </div>
+        <div class="navbar_center">
+            <h1>Asistencia de los Alumnos</h1>
+        </div>
+        <div class="navbar_right">
+            <a href="home_docente.html" style="color:white; text-decoration:none;">Volver</a>
+        </div>
+    </nav>
+</header>
+
+<main class="contenedor-principal">
+    <nav class="navbar_home_infe">
+        <ul class="nav-links_home">
+            <li><a href="ver_horarios.html">Ver Horarios</a></li>
+            <li><a href="ver_materias.html">Ver Materias</a></li>
+            <li><a href="ver_perfil.html">Ver Perfil</a></li>
+        </ul>
+    </nav>
+
+    <!-- Tabla de Asistencia -->
+    <section class="tabla-horario">
+        <h2>Marcar Asistencia</h2>
+        <table style="width:100%; background:white; border-collapse: collapse;">
+            <thead>
+                <tr style="background:#2c3e50; color:white;">
+                    <th>Alumno</th>
+                    <th>Asistencia</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody id="tablaAsistencia">
+                <!-- Aquí se cargarán los alumnos desde JS -->
+            </tbody>
+        </table>
+        <button onclick="marcarAsistencia()">Guardar Asistencia</button>
+    </section>
+
+</main>
+
+<script src="../assets/js/funcionalidad.js"></script>
+<script src="../assets/js/ver_asistencia.js"></script>
+
+</body>
+</html>
