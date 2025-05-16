@@ -45,12 +45,6 @@ document.addEventListener('DOMContentLoaded', async function () {
                                     data-seccion    ="${m.id_seccion}"
                                     data-display   ="${m.materia} – ${m.grado_y_nivel} ${m.seccion}"
                             >Evaluaciones y Tareas</button>
-                            <button
-                                    class="btn ingresar-nota"
-                                    data-materia   ="${m.id_materia}"
-                                    data-grado     ="${m.id_grado}"
-                                    data-seccion   ="${m.id_seccion}"
-                            >Ingresar Nota</button>
                         </td>
                     </tr>
                 `);
