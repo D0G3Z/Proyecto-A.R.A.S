@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const jd = await res.json();
     if (!jd.success) throw new Error(jd.message);
     students = jd.alumnos.map(a => ({
-      id_matricula:     a.id_alumno,
+      id_matricula:     a.id_matricula,
       nombres:          a.nombres,
       apellido_paterno: a.apellido_paterno,
       apellido_materno: a.apellido_materno

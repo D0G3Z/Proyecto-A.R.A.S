@@ -20,6 +20,7 @@ async function getAlumnosPorMateria(req, res) {
     await sql.connect(config);
     const result = await sql.query`
       SELECT
+        mat.id_matricula,
         al.id_alumno,
         al.nombres,
         al.apellido_paterno,

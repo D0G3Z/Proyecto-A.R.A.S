@@ -19,8 +19,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       `&grado=${idGrado}&seccion=${encodeURIComponent(seccion)}`
     );
     const dataAl = await resAl.json();
+    console.log('Respuesta alumnos:', dataAl);
     if (!dataAl.success) throw new Error(dataAl.message);
     const alumnos = dataAl.alumnos;
+    console.log('Alumnos array:', alumnos);
 
     // 2) Fetch promedios para cada bimestre en paralelo
     const promPromises = [1,2,3,4].map(bi =>
@@ -31,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       ).then(r => r.json())
     );
     const promResults = await Promise.all(promPromises);
+    console.log('Resultados promResults:', promResults);
 
     // Mapear por bimestre: promMaps[bi] = { id_matricula: promedio }
     const promMaps = {};
@@ -43,14 +46,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
       }
     });
+    console.log('Mapas de promedios por bimestre:', promMaps);
 
     // 3) Render tabla
     tabla.innerHTML = '';
     alumnos.forEach((a, idx) => {
-      // id_matricula viene en a.id_alumno según tu controller
-      const idMat = a.id_alumno;
+      const idMat = a.id_matricula;
       const nombre = `${a.nombres} ${a.apellido_paterno} ${a.apellido_materno}`;
-      const cells = [1,2,3,4].map(bi => promMaps[bi][idMat] ?? '-').join('</td><td>');
+      console.log(`Alumno ${idMat} ${nombre} ->`, {
+        b1: promMaps[1][idMat],
+        b2: promMaps[2][idMat],
+        b3: promMaps[3][idMat],
+        b4: promMaps[4][idMat],
+      });
       tabla.insertAdjacentHTML('beforeend', `
         <tr>
           <td>${idx+1}</td>
