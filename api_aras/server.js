@@ -14,6 +14,7 @@ const asignRoutes = require('./routes/asignacionRoutes');
 const calificacionRoutes = require('./routes/calificacionRoutes');
 const notaRoutes = require('./routes/notasRoutes');
 const docenteRoutes = require('./routes/docenteRoutes');
+const apoderadoRoutes = require('./routes/apoderadoRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -36,6 +37,7 @@ app.use('/api', asignRoutes);
 app.use('/api', calificacionRoutes);
 app.use('/api', notaRoutes);
 app.use('/api', docenteRoutes);
+app.use('/api', apoderadoRoutes);
 
 
 // Servidor escuchando

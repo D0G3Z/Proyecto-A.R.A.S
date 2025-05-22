@@ -64,54 +64,52 @@ document.addEventListener('DOMContentLoaded', function () {
     // ========================
 
     const loginForm = document.getElementById('login_sesion');
-    
+
     if (loginForm) {
-        loginForm.addEventListener('submit', async function (e) {
-            e.preventDefault();
+    loginForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-            const usuario = document.getElementById('login_usuario').value;
-            const contrasena = document.getElementById('login_contraseña').value;
+        const usuario   = document.getElementById('login_usuario').value;
+        const contrasena = document.getElementById('login_contraseña').value;
 
-            // Realizar la solicitud de login al backend
-            const res = await fetch('http://localhost:3000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    usuario: usuario,
-                    contrasena: contrasena
-                })
-            });
-
-            const data = await res.json();
-
-            if (data.success) {
-                // Si el login es exitoso, guarda el id_docente y el rol en localStorage
-                localStorage.setItem('id_usuario', data.usuario.id_docente || null);  // Guarda el id_docente (si es docente)
-                localStorage.setItem('nombre_usuario', data.usuario.nombres);  // Guarda el nombre del usuario
-                localStorage.setItem('rol', data.usuario.rol);  // Guarda el rol (Director, Docente, Apoderado)
-
-                // Redirige a la página correspondiente según el rol
-                switch (data.usuario.rol) {
-                    case "DIRECTOR":
-                        window.location.href = "../pages/home_director.html";
-                        break;
-                    case "DOCENTE":
-                        window.location.href = "../pages/home_docente.html";
-                        break;
-                    case "APODERADO":
-                        window.location.href = "../pages/home_apoderado.html";
-                        break;
-                    default:
-                        alert("Rol no reconocido");
-                        break;
-                }
-            } else {
-                // Si el login falla, muestra un mensaje de error
-                alert(data.message || 'Usuario o contraseña incorrectos');
-            }
+        // Realizar la solicitud de login al backend
+        const res  = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario, contrasena })
         });
+        const data = await res.json();
+
+        if (data.success) {
+        // Guarda el rol y el nombre siempre
+        localStorage.setItem('rol', data.usuario.rol);
+        localStorage.setItem('nombre_usuario', data.usuario.nombres);
+
+        // Guarda el ID correcto según su rol
+        switch (data.usuario.rol) {
+            case "DIRECTOR":
+            // asumiendo que data.usuario.id_director existe
+            localStorage.setItem('id_usuario', data.usuario.id_director);
+            window.location.href = "../pages/home_director.html";
+            break;
+
+            case "DOCENTE":
+            localStorage.setItem('id_usuario', data.usuario.id_docente);
+            window.location.href = "../pages/home_docente.html";
+            break;
+
+            case "APODERADO":
+            localStorage.setItem('id_usuario', data.usuario.id_apoderado);
+            window.location.href = "../pages/home_apoderado.html";
+            break;
+
+            default:
+            alert("Rol no reconocido");
+        }
+        } else {
+        alert(data.message || 'Usuario o contraseña incorrectos');
+        }
+    });
     }
 
 });

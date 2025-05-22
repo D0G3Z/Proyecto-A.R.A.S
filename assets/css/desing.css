@@ -393,3 +393,13 @@ header.home {
 .text-ecf0f1 {
     color: #ecf0f1 !important;
   }
+
+  /* Más padding vertical en celdas */
+.table > tbody > tr > td {
+  padding: .75rem 1rem;
+}
+
+/* Cabeceras con fondo suave */
+.table-light th {
+  background-color: #f8f9fa !important;
+}

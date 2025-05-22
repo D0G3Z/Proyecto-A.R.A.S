@@ -1,0 +1,186 @@
+// assets/js/home_apoderado.js
+document.addEventListener('DOMContentLoaded', () => {
+  const API           = 'http://localhost:3000/api';
+  const idApo     = localStorage.getItem('id_usuario');
+  const selHijo    = document.getElementById('selHijo');
+  const listaCursos   = document.getElementById('listaCursosApod');
+  const listaHorarios = document.getElementById('listaHorariosApod');
+  const btnHoy        = document.getElementById('btnHoy');
+  const btnManana     = document.getElementById('btnManana');
+
+  let currentAlumno = null;
+
+  // 0) Si no hay id en storage, volver al login
+  if (!idApo) {
+    localStorage.clear();
+    window.location.href = 'login.html';
+    return;
+  }
+
+  // 1) Traer hijos
+  async function cargaHijos() {
+    try {
+      const res = await fetch(`${API}/apoderados/${idApo}/hijos`);
+      const { success, hijos } = await res.json();
+      if (!success || !hijos.length) {
+        selHijo.innerHTML = `<option disabled>No hay hijos</option>`;
+        return;
+      }
+      selHijo.innerHTML = hijos
+        .map(h => `<option value="${h.id_alumno}">${h.nombre}</option>`)
+        .join('');
+      currentAlumno = hijos[0].id_alumno;
+    } catch (err) {
+      console.error('Error al cargar hijos:', err);
+      selHijo.innerHTML = `<option disabled>Error al cargar</option>`;
+    }
+  }
+
+  selHijo.addEventListener('change', () => {
+    currentAlumno = selHijo.value;
+    cargaResumenCursos();
+    // recarga horarios para hoy
+    btnHoy.click();
+  });
+
+  // 2) Mis Cursos + Notas del bimestre actual
+  async function cargaResumenCursos() {
+  const tbody = document.getElementById('listaCursosApod');
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="3" class="text-center py-3">Cargando…</td>
+    </tr>`;
+
+  try {
+    const res = await fetch(
+      `${API}/apoderados/${idApo}/resumen-cursos?alumno=${currentAlumno}`
+    );
+    const { success, data } = await res.json();
+    if (!success) throw new Error();
+
+    if (data.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="3" class="text-center py-3">Sin cursos en este bimestre.</td>
+        </tr>`;
+      return;
+    }
+
+    // Generar una fila por cada curso
+    tbody.innerHTML = data.map(c => `
+      <tr>
+        <td class="text-center"><strong>${c.curso}</strong></td>
+        <td class="text-center">${c.faltas || 0}</td>
+        <td class="text-center">${Math.round(c.promedio || 0)}</td>
+      </tr>
+    `).join('');
+
+  } catch {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="3" class="text-center text-danger py-3">
+          Error al cargar datos.
+        </td>
+      </tr>`;
+  }
+}
+
+  // 3) Mis Horarios (hoy/mañana)
+  async function cargaHorarios(fechaYMD) {
+    listaHorarios.innerHTML = '<li>Cargando…</li>';
+    try {
+      const res = await fetch(
+        `${API}/apoderados/${idApo}/horarios?dia=${fechaYMD}&alumno=${currentAlumno}`
+      );
+      const jd  = await res.json();
+      if (!jd.success) throw new Error(jd.message);
+      if (!jd.horarios.length) {
+        listaHorarios.innerHTML = '<li>No hay cursos programados.</li>';
+      } else {
+        listaHorarios.innerHTML = '';
+        jd.horarios.forEach(h => {
+          listaHorarios.insertAdjacentHTML('beforeend', `
+            <li class="mb-2">
+              <strong>${h.hora_inicio}–${h.hora_fin}</strong><br/>
+              ${h.curso}
+            </li>
+          `);
+        });
+      }
+    } catch (err) {
+      console.error('Error al cargar horarios:', err);
+      listaHorarios.innerHTML = '<li class="text-danger">Error al cargar horarios.</li>';
+    }
+  }
+
+  // Helpers para Hoy/Mañana
+  function formatYMD(d) {
+    const pad = x => String(x).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  }
+  btnHoy.addEventListener('click', () => {
+    btnHoy.classList.add('active');
+    btnManana.classList.remove('active');
+    cargaHorarios(formatYMD(new Date()));
+  });
+  btnManana.addEventListener('click', () => {
+    btnManana.classList.add('active');
+    btnHoy.classList.remove('active');
+    const manana = new Date();
+    manana.setDate(manana.getDate() + 1);
+    cargaHorarios(formatYMD(manana));
+  });
+
+  // 4) Calendario dinámico
+  (function() {
+    const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+    let fecha = new Date();
+    const mesAnioEl   = document.getElementById('mesAnio');
+    const calendarioEl= document.getElementById('calendarioApod');
+    const btnPrev     = document.getElementById('prevMes');
+    const btnNext     = document.getElementById('nextMes');
+
+    function generar() {
+      const año = fecha.getFullYear(), m = fecha.getMonth();
+      mesAnioEl.textContent = `${meses[m]} ${año}`;
+      const primerDia = new Date(año, m, 1).getDay(),
+            diasMes   = new Date(año, m+1, 0).getDate();
+      calendarioEl.innerHTML = '';
+      let fila = document.createElement('tr');
+      const offset = (primerDia + 6) % 7;  // lunes=0
+      for (let i = 0; i < offset; i++) fila.appendChild(document.createElement('td'));
+      for (let d = 1; d <= diasMes; d++) {
+        if (fila.children.length === 7) {
+          calendarioEl.appendChild(fila);
+          fila = document.createElement('tr');
+        }
+        const celda = document.createElement('td');
+        celda.textContent = d;
+        const hoy = new Date();
+        if (d === hoy.getDate() && m === hoy.getMonth() && año === hoy.getFullYear()) {
+          celda.classList.add('bg-primary','text-white','rounded');
+        }
+        fila.appendChild(celda);
+      }
+      while (fila.children.length < 7) fila.appendChild(document.createElement('td'));
+      calendarioEl.appendChild(fila);
+    }
+
+    btnPrev.addEventListener('click', () => { fecha.setMonth(fecha.getMonth() - 1); generar(); });
+    btnNext.addEventListener('click', () => { fecha.setMonth(fecha.getMonth() + 1); generar(); });
+    generar();
+  })();
+
+  // 5) Cerrar sesión
+  document.getElementById('btnLogout')?.addEventListener('click', () => {
+    localStorage.clear();
+    window.location.href = 'login.html';
+  });
+
+  // === Arrancar todo ===
+  (async () => {
+    await cargaHijos();
+    await cargaResumenCursos();
+    btnHoy.click();
+  })();
+});
