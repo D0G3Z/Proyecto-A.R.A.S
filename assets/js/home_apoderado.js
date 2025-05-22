@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const listaHorarios = document.getElementById('listaHorariosApod');
   const btnHoy        = document.getElementById('btnHoy');
   const btnManana     = document.getElementById('btnManana');
+  const btnVerEventos = document.getElementById('btnVerEventos');
 
   let currentAlumno = null;
 
@@ -202,6 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.clear();
     window.location.href = 'login.html';
   });
+
+    if (btnVerEventos) {
+    btnVerEventos.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Próxima funcionalidad: ver todos los eventos del calendario');
+    });
+  }
 
   // === Arrancar todo ===
   (async () => {
