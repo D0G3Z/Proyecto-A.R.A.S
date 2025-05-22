@@ -87,27 +87,32 @@ async function getCursosPorApoderado(req, res) {
 
 // 4) Horarios filtrados por fecha (query param ?dia=YYYY-MM-DD&alumno=)
 async function getHorariosPorApoderado(req, res) {
-  const idApo    = parseInt(req.params.id, 10);
-  const idAlumno = parseInt(req.query.alumno, 10);
-  const diaStr   = req.query.dia;
-  if (!idApo || !diaStr || !idAlumno) {
-    return res.status(400).json({ success: false, message: 'Faltan parámetros' });
+  const idApo  = parseInt(req.params.id, 10);
+  const diaStr = req.query.dia;            // p.e. "2025-05-22"
+  if (!idApo || !diaStr) {
+    return res.status(400).json({ success: false, message: 'Falta id_apoderado o dia' });
   }
   try {
     await sql.connect(config);
     const result = await sql.query`
       DECLARE @fecha date = ${diaStr};
       SELECT
-        CONVERT(varchar(5), h.hora_inicio,108) AS hora_inicio,
-        CONVERT(varchar(5), h.hora_fin,   108) AS hora_fin,
-        m.nombre      AS curso
+        CONVERT(varchar(5), h.hora_inicio, 108) AS hora_inicio,
+        CONVERT(varchar(5), h.hora_fin,    108) AS hora_fin,
+        m.nombre                             AS curso
       FROM alumno_apoderado aa
-      JOIN matricula mat ON aa.id_alumno = mat.id_alumno AND mat.id_alumno = ${idAlumno}
-      JOIN horario_clase h ON mat.id_grado = h.id_grado AND mat.id_seccion = h.id_seccion
-      JOIN materia m ON h.id_materia = m.id_materia
-      WHERE aa.id_apoderado = ${idApo} AND aa.es_principal = 1
-        AND h.dia_semana = DATENAME(dw, @fecha)
-      ORDER BY h.hora_inicio
+      JOIN matricula mat
+        ON aa.id_alumno   = mat.id_alumno
+      JOIN horario_clase h
+        ON mat.id_grado   = h.id_grado
+       AND mat.id_seccion = h.id_seccion
+      JOIN materia m
+        ON h.id_materia = m.id_materia
+      WHERE aa.id_apoderado = ${idApo}
+        AND aa.es_principal  = 1
+        -- Esto devolverá "Lunes", "Martes", etc. en español
+        AND h.dia_semana = FORMAT(@fecha,'dddd','es-ES')
+      ORDER BY h.hora_inicio;
     `;
     res.json({ success: true, horarios: result.recordset });
   } catch (err) {

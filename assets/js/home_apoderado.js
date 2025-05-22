@@ -87,29 +87,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3) Mis Horarios (hoy/mañana)
   async function cargaHorarios(fechaYMD) {
-    listaHorarios.innerHTML = '<li>Cargando…</li>';
+    const cont = document.getElementById('listaHorariosApod');
+    cont.innerHTML = '<div class="col-12 text-center">Cargando…</div>';
     try {
-      const res = await fetch(
-        `${API}/apoderados/${idApo}/horarios?dia=${fechaYMD}&alumno=${currentAlumno}`
-      );
+      const res = await fetch(`${API}/apoderados/${idApo}/horarios?dia=${fechaYMD}`);
       const jd  = await res.json();
       if (!jd.success) throw new Error(jd.message);
-      if (!jd.horarios.length) {
-        listaHorarios.innerHTML = '<li>No hay cursos programados.</li>';
-      } else {
-        listaHorarios.innerHTML = '';
-        jd.horarios.forEach(h => {
-          listaHorarios.insertAdjacentHTML('beforeend', `
-            <li class="mb-2">
-              <strong>${h.hora_inicio}–${h.hora_fin}</strong><br/>
-              ${h.curso}
-            </li>
-          `);
-        });
+
+      const [yy, mm, dd] = fechaYMD.split('-').map(Number);
+      const dt            = new Date(yy, mm - 1, dd);
+      let diaTexto        = dt.toLocaleDateString('es-ES', { weekday: 'long' });
+      diaTexto            = diaTexto[0].toUpperCase() + diaTexto.slice(1);
+
+      if (jd.horarios.length === 0) {
+        cont.innerHTML = `
+          <div class="col-12 text-center">
+            Clases para <strong>${diaTexto}</strong>:<br>
+            No hay clases programadas.
+          </div>`;
+        return;
       }
+
+        cont.innerHTML = `
+        <div class="col-12 mb-2">
+          <h6>Clases para <strong>${diaTexto}</strong>:</h6>
+        </div>`;
+
+      jd.horarios.forEach(h => {
+        cont.insertAdjacentHTML('beforeend', `
+          <div class="col-12 col-md-6">
+            <div class="card shadow-sm mb-3">
+              <div class="card-body p-3">
+                <h5 class="card-title mb-1">${h.curso}</h5>
+                <p class="card-text mb-0">
+                  <i class="bi bi-clock"></i>
+                  ${h.hora_inicio} – ${h.hora_fin}
+                </p>
+              </div>
+            </div>
+          </div>
+        `);
+      });
+
     } catch (err) {
       console.error('Error al cargar horarios:', err);
-      listaHorarios.innerHTML = '<li class="text-danger">Error al cargar horarios.</li>';
+      cont.innerHTML = `
+        <div class="col-12 text-danger text-center">
+          Error al cargar horarios.
+        </div>`;
     }
   }
 
@@ -123,12 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
     btnManana.classList.remove('active');
     cargaHorarios(formatYMD(new Date()));
   });
+
   btnManana.addEventListener('click', () => {
     btnManana.classList.add('active');
     btnHoy.classList.remove('active');
-    const manana = new Date();
-    manana.setDate(manana.getDate() + 1);
-    cargaHorarios(formatYMD(manana));
+    const man = new Date();
+    man.setDate(man.getDate() + 1);
+    cargaHorarios(formatYMD(man));
   });
 
   // 4) Calendario dinámico

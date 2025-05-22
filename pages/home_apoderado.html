@@ -58,8 +58,6 @@
       </div>
     </div>
 
-
-
     <!-- MIS HORARIOS -->
     <div class="col-lg-4">
       <div class="card h-100 shadow-sm">
@@ -72,7 +70,7 @@
             <button id="btnHoy" class="btn btn-outline-primary active">Hoy</button>
             <button id="btnManana" class="btn btn-outline-primary">Mañana</button>
           </div>
-          <ul id="listaHorariosApod" class="list-unstyled mb-0">
+          <ul id="listaHorariosApod" class="row g-3">
             <!-- se llenará con JS -->
           </ul>
         </div>
@@ -80,38 +78,38 @@
     </div>
 
     <!-- CALENDARIO -->
-<div class="col-lg-4">
-  <div class="card h-100 shadow-sm">
-    <div class="card-header bg-azul1 text-ecf0f1 d-flex justify-content-between align-items-center">
-      <span>Calendario</span>
-      <a href="ver_eventos_apoderado.html" class="text-white text-decoration-none">Ver todo →</a>
-    </div>
-    <div class="card-body">
-      <!-- Header mes -->
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <button id="prevMes" class="btn btn-sm btn-outline-light">&lt;</button>
-        <h6 id="mesAnio" class="mb-0"></h6>
-        <button id="nextMes" class="btn btn-sm btn-outline-light">&gt;</button>
+    <div class="col-lg-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-header bg-azul1 text-ecf0f1 d-flex justify-content-between align-items-center">
+          <span>Calendario</span>
+          <a href="ver_eventos_apoderado.html" class="text-white text-decoration-none">Ver todo →</a>
+        </div>
+        <div class="card-body">
+          <!-- Header mes -->
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <button id="prevMes" class="btn btn-sm btn-outline-light">&lt;</button>
+            <h6 id="mesAnio" class="mb-0"></h6>
+            <button id="nextMes" class="btn btn-sm btn-outline-light">&gt;</button>
+          </div>
+          <!-- Rejilla de días -->
+          <table class="table table-bordered text-center mb-2">
+            <thead>
+              <tr>
+                <th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sá</th><th>Do</th>
+              </tr>
+            </thead>
+            <tbody id="calendarioApod">
+              <!-- se llenará con JS -->
+            </tbody>
+          </table>
+          <!-- Lista de eventos de ejemplo -->
+          <ul id="listaEventosApod" class="list-unstyled">
+            <li><strong>Jue 01:</strong> Lorem ipsum</li>
+            <li><strong>Lun 12:</strong> Lorem ipsum</li>
+          </ul>
+        </div>
       </div>
-      <!-- Rejilla de días -->
-      <table class="table table-bordered text-center mb-2">
-        <thead>
-          <tr>
-            <th>Lu</th><th>Ma</th><th>Mi</th><th>Ju</th><th>Vi</th><th>Sá</th><th>Do</th>
-          </tr>
-        </thead>
-        <tbody id="calendarioApod">
-          <!-- se llenará con JS -->
-        </tbody>
-      </table>
-      <!-- Lista de eventos de ejemplo -->
-      <ul id="listaEventosApod" class="list-unstyled">
-        <li><strong>Jue 01:</strong> Lorem ipsum</li>
-        <li><strong>Lun 12:</strong> Lorem ipsum</li>
-      </ul>
     </div>
-  </div>
-</div>
 
 </main>
 
