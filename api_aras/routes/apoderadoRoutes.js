@@ -9,6 +9,13 @@ router.get('/apoderados/:id/hijos', ctrl.getHijosPorApoderado);
 router.get('/apoderados/:id/cursos',         ctrl.getCursosPorApoderado);
 // 3) Horarios para un día concreto
 router.get('/apoderados/:id/horarios',       ctrl.getHorariosPorApoderado);
+
+// GET /api/apoderados/:id/horarios-semana?alumno=ID_ALUMNO
+router.get(
+  '/apoderados/:id/horarios-semanal',
+  ctrl.getHorariosSemanalPorApoderado
+);
+
 // 5) **Resumen (“Mis Cursos” + faltas + promedio bimestre actual)**
 router.get('/apoderados/:id/resumen-cursos', ctrl.getResumenCursosPorApoderado);
 

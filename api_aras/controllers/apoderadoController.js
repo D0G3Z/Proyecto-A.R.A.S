@@ -178,10 +178,57 @@ async function getResumenCursosPorApoderado(req, res) {
   }
 }
 
+// 6) Horario semanal completo (Lun–Vie) para un alumno
+async function getHorariosSemanalPorApoderado(req, res) {
+  const idApo    = parseInt(req.params.id, 10);
+  const idAlumno = parseInt(req.query.alumno, 10);
+  if (!idApo || !idAlumno) {
+    return res.status(400).json({ success: false, message: 'Faltan parámetros id_apoderado o alumno' });
+  }
+
+  try {
+    await sql.connect(config);
+    const result = await sql.query`
+      SELECT
+        h.dia_semana                          AS dia_semana,
+        CONVERT(varchar(5), h.hora_inicio,108) AS hora_inicio,
+        CONVERT(varchar(5), h.hora_fin,   108) AS hora_fin,
+        m.nombre                              AS curso
+      FROM alumno_apoderado aa
+      JOIN matricula mat
+        ON aa.id_alumno   = mat.id_alumno
+      JOIN horario_clase h
+        ON mat.id_grado   = h.id_grado
+       AND mat.id_seccion = h.id_seccion
+      JOIN materia m
+        ON h.id_materia = m.id_materia
+      WHERE aa.id_apoderado  = ${idApo}
+        AND aa.es_principal   = 1
+        AND mat.id_alumno     = ${idAlumno}
+      ORDER BY
+        CASE h.dia_semana
+          WHEN 'Lunes'     THEN 1
+          WHEN 'Martes'    THEN 2
+          WHEN 'Miércoles' THEN 3
+          WHEN 'Jueves'    THEN 4
+          WHEN 'Viernes'   THEN 5
+          ELSE 6
+        END,
+        h.hora_inicio
+    `;
+    res.json({ success: true, horarios: result.recordset });
+  } catch (err) {
+    console.error('Error en getHorariosSemanalPorApoderado:', err);
+    res.status(500).json({ success: false, message: 'Error al obtener horario semanal' });
+  }
+}
+
+
 module.exports = {
   getApoderadoById,
   getHijosPorApoderado,
   getCursosPorApoderado,
   getHorariosPorApoderado,
-  getResumenCursosPorApoderado
+  getResumenCursosPorApoderado,
+  getHorariosSemanalPorApoderado
 };

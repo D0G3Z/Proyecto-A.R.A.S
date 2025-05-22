@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const API           = 'http://localhost:3000/api';
   const idApo     = localStorage.getItem('id_usuario');
   const selHijo    = document.getElementById('selHijo');
+  const tablaHorarios = document.getElementById('tablaHorarios');
   const listaCursos   = document.getElementById('listaCursosApod');
   const listaHorarios = document.getElementById('listaHorariosApod');
   const btnHoy        = document.getElementById('btnHoy');
@@ -37,8 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+
+
   selHijo.addEventListener('change', () => {
     currentAlumno = selHijo.value;
+    localStorage.setItem('id_alumno', currentAlumno);
     cargaResumenCursos();
     // recarga horarios para hoy
     btnHoy.click();

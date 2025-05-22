@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mis Horarios - Apoderado</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/desing.css"/>
+</head>
+<body class="bg-light">
+
+<header class="home">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-35475b px-3">
+    <div class="container-fluid">
+      <div class="navbar-brand d-flex align-items-center">
+        <img src="../assets/img/Logo1.png" width="40" class="me-3" alt="Logo" />
+        Mis Horarios
+      </div>
+      <a href="home_apoderado.html" class="btn btn-outline-light btn-sm">Volver</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container my-4">
+  <div class="mb-3">
+    <label for="selHijo" class="form-label">Selecciona a tu hijo/a:</label>
+    <select id="selHijo" class="form-select"></select>
+  </div>
+
+  <div class="table-responsive shadow-sm">
+    <table id="tablaHorariosApod" class="table table-bordered mb-0 text-center bg-white">
+      <thead class="bg-azul1 text-ecf0f1 text-center">
+        <tr>
+          <th>Hora</th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/ver_horarios_apoderado.js"></script>
+<script src="../assets/js/auth.js"></script>
+<script>verificarRol("APODERADO");</script>
+</body>
+</html>
