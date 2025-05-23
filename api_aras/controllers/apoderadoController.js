@@ -222,6 +222,89 @@ async function getHorariosSemanalPorApoderado(req, res) {
     res.status(500).json({ success: false, message: 'Error al obtener horario semanal' });
   }
 }
+/**
+ * 6) Tareas + notas de un curso para un alumno dado
+ *    /api/apoderados/:id/tareas?alumno=...&materia=...
+ */
+async function getTareasPorCursoAlumno(req, res) {
+  const idApo   = parseInt(req.params.id, 10);
+  const idAlu   = parseInt(req.query.alumno, 10);
+  const idMat   = parseInt(req.query.materia, 10);
+  if (!idApo || !idAlu || !idMat) {
+    return res.status(400).json({ success:false, message:'Faltan parámetros' });
+  }
+  try {
+    await sql.connect(config);
+    // obtenemos id_matricula
+    const matRes = await sql.query`
+      SELECT TOP(1) id_matricula
+      FROM matricula
+      WHERE id_alumno = ${idAlu}
+    `;
+    const idMatri = matRes.recordset[0]?.id_matricula;
+    if (!idMatri) return res.json({ success:true, tareas:[] });
+
+    const result = await sql.query`
+      SELECT
+        a.id_asignacion,
+        a.descripcion AS tarea,
+        FORMAT(a.fecha_entrega,'yyyy-MM-dd') AS fecha_entrega,
+        ISNULL(c.nota, NULL) AS nota
+      FROM asignacion a
+      LEFT JOIN calificacion c
+        ON c.id_asignacion = a.id_asignacion
+       AND c.id_matricula = ${idMatri}
+      WHERE a.id_materia = ${idMat}
+        AND a.id_grado   = (SELECT id_grado   FROM matricula WHERE id_matricula=${idMatri})
+        AND a.id_seccion = (SELECT id_seccion FROM matricula WHERE id_matricula=${idMatri})
+      ORDER BY a.fecha_entrega DESC
+    `;
+    res.json({ success:true, tareas: result.recordset });
+  } catch(err) {
+    console.error('Error en getTareasPorCursoAlumno:', err);
+    res.status(500).json({ success:false, message:'Error al obtener tareas' });
+  }
+}
+
+/**
+ * 7) Asistencias de un curso para un alumno dado
+ *    /api/apoderados/:id/asistencias?alumno=...&materia=...
+ */
+async function getAsistenciasPorCursoAlumno(req, res) {
+  const idApo   = parseInt(req.params.id, 10);
+  const idAlu   = parseInt(req.query.alumno, 10);
+  const idMat   = parseInt(req.query.materia, 10);
+  if (!idApo || !idAlu || !idMat) {
+    return res.status(400).json({ success:false, message:'Faltan parámetros' });
+  }
+  try {
+    await sql.connect(config);
+    // obtenemos id_matricula
+    const matRes = await sql.query`
+      SELECT TOP(1) id_matricula
+      FROM matricula
+      WHERE id_alumno = ${idAlu}
+    `;
+    const idMatri = matRes.recordset[0]?.id_matricula;
+    if (!idMatri) return res.json({ success:true, asistencias:[] });
+
+    const result = await sql.query`
+      SELECT
+        FORMAT(aa.fecha,'yyyy-MM-dd') AS fecha,
+        aa.estado -- 'P' = presente, 'A' = ausente
+      FROM asistencia_alumno aa
+      JOIN horario_clase hc
+        ON aa.id_horario = hc.id_horario
+       AND hc.id_materia = ${idMat}
+      WHERE aa.id_matricula = ${idMatri}
+      ORDER BY aa.fecha DESC
+    `;
+    res.json({ success:true, asistencias: result.recordset });
+  } catch(err) {
+    console.error('Error en getAsistenciasPorCursoAlumno:', err);
+    res.status(500).json({ success:false, message:'Error al obtener asistencias' });
+  }
+}
 
 
 module.exports = {
@@ -230,5 +313,7 @@ module.exports = {
   getCursosPorApoderado,
   getHorariosPorApoderado,
   getResumenCursosPorApoderado,
-  getHorariosSemanalPorApoderado
+  getHorariosSemanalPorApoderado,
+  getTareasPorCursoAlumno,
+  getAsistenciasPorCursoAlumno
 };

@@ -19,4 +19,7 @@ router.get(
 // 5) **Resumen (“Mis Cursos” + faltas + promedio bimestre actual)**
 router.get('/apoderados/:id/resumen-cursos', ctrl.getResumenCursosPorApoderado);
 
+router.get('/apoderados/:id/tareas',           ctrl.getTareasPorCursoAlumno);
+router.get('/apoderados/:id/asistencias',      ctrl.getAsistenciasPorCursoAlumno);
+
 module.exports = router;
